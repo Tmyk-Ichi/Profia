@@ -1,0 +1,10 @@
+<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+
+<h1>MYpage</h1>
+<%= attachment_image_tag @user, :profile_image, size: '100x100', fallback: "no_image.jpg" %>
+<p><%= @user.name %></p>
+<p><%= @user.introduction %></p>
+
+<% if @user.id == current_user.id %>
+<%= link_to "編集", edit_user_path(current_user.id) %>
+<% end %>
