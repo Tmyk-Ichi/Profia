@@ -1,0 +1,25 @@
+<div class="container">
+
+<h2>投稿詳細画面</h2>
+
+	<h3>URL</h3>
+	<%= @note.url %>
+
+	<h3>タグ</h3>
+
+
+	<% @note.tag_list.each do |tag| %>
+	<!-- 仮のタグ付け機能 -->
+	<span class="badge badge-primary"><%= tag %></span>
+	<% end %>
+
+	<h3>タイトル</h3>
+	<%= @note.title %>
+
+	<h3>概要</h3>
+	<%= @note.introduction %>
+
+	<h3>本文</h3>
+
+		<%= @note.body %>
+</div>

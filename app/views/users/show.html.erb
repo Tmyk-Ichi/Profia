@@ -1,10 +1,23 @@
 <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
 
-<h1>MYpage</h1>
-<%= attachment_image_tag @user, :profile_image, size: '100x100', fallback: "no_image.jpg" %>
+<div class="container mt-5">
+<h1 class="text-center">MYpage</h1>
+<div class ="row">
+<%= attachment_image_tag @user, :profile_image, size: '150x150', fallback: "no_image.jpg", :class => "d-block mx-auto border rounded-circle mb-5" %>
+</div>
+<div class="row">
 <p><%= @user.name %></p>
-<p><%= @user.introduction %></p>
-
 <% if @user.id == current_user.id %>
 <%= link_to "編集", edit_user_path(current_user.id) %>
 <% end %>
+<p><%= @user.introduction %></p>
+</div>
+</div>
+
+<% @notes.each do |note| %>
+<p><%= note.title%></p>
+
+<% end %>
+
+
+</div>S
