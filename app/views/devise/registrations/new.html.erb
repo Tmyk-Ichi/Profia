@@ -1,35 +1,54 @@
-<h2>Sign up</h2>
+<div class="container pt-5">
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <h2 class="text-center my-4">新規登録</h2>
+
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "ユーザーネーム" %>
-  </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">&emsp;ユーザー名&emsp; </span>
+      </div>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", :class => "form-control" %>
+    </div>
 
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス" %>
-  </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">メールアドレス</span>
+      </div>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力してください" %>
-  </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">&emsp;パスワード&emsp;
+        </span>
+      </div>
+      <%= f.password_field :password, autocomplete: "new-password", :class => "form-control" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+<!--     <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %>文字以上必要)</em>
+    <% end %> -->
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+    <div class="input-group my-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">パスワード確認</span>
+      </div>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "新規登録", :class =>"btn btn-block btn-success d-block mt-1 mb-3" %>
+    </div>
 <% end %>
+    <%= link_to "ログインはこちら", new_user_session_path, :class =>"btn btn-primary d-block mx-auto" %>
 
-<%= render "devise/shared/links" %>
+<!-- <%= render "devise/shared/links" %> -->
+
+  </div>
+  </div>
+</div>

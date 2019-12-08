@@ -65,3 +65,14 @@ gem 'devise'
 
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
+
+gem "acts_as_follower", github: "tcocca/acts_as_follower"
+
+gem 'ransack'
+
+gem 'impressionist'
+
+gem 'acts-as-taggable-on'
+
+gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
+gem 'jquery-rails'

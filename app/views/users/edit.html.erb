@@ -1,13 +1,42 @@
-<h1>Profile</h1>
-
 <%= form_for(@user) do |f| %>
-	<%= attachment_image_tag @user, :profile_image, size: '100x100', fallback: "no_image.jpg" %>
-    <%= f.attachment_field :profile_image %>
-	<%= f.label :ユーザーネーム %>
-	<%= f.text_field :name %>
 
-	<%= f.label :自己紹介 %>
-	<%= f.text_field :introduction %>
-    <%= f.submit "更新する" %>
+<div class="container pt-5">
 
+<h1 class="text-center">Profile</h1>
+
+<div class="col-md-8 mx-auto pt-5">
+<div class="row">
+	<div class ="col-md-5">
+		<%= attachment_image_tag @user, :profile_image, size: '150x150', fallback: "no_image.jpg", :class => "d-block mx-auto border rounded-circle mb-5" %>
+		<div class="input-group mx-auto">
+			<label class="input-group-btn mx-auto">
+				<span class="btn btn-block">
+		         <%= f.attachment_field :profile_image%>
+		        </span>
+		    </label>
+	    </div>
+	</div>
+	<div class ="col-md-7">
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1">ユーザー名</span>
+        </div>
+		<%= f.text_field :name, :class => "form-control" %>
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1">&emsp;紹介文&emsp;</span>
+        </div>
+		<%= f.text_area :introduction, :class => "form-control", :size =>"60x5" %>
+	  </div>
+
+
+	    <%= f.submit "更新する", :class => "d-block btn btn-primary mx-auto" %>
+    </div>
+
+</div>
+</div>
+</div>
 <% end %>
