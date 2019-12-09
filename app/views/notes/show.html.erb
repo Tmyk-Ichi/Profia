@@ -12,12 +12,14 @@
 				<!-- 仮のタグ付け機能 -->
 				<span class="badge badge-primary"><%= tag %></span>
 				<% end %>
+				<% if user_signed_in? %>
 				<% if @note.user.id == current_user.id %>
 				<div class="col-md-3 float-right my-3">
 					<%= link_to "編集する", edit_note_path(@note.id), :class=>"btn btn-sm  btn-success" %>
 					<%= link_to "削除する", note_path(@note.id),method: :delete, :class=>"btn btn-sm btn-danger",data: { confirm: '削除しますか？' } %>
 				</div>
 				<% end %>
+				<%end%>
 				<div class="col-md-3">
 					<div class="card p-3 mt-3">
 						<div class="row">

@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   get "users/:id" => "users#show", as: :mypage
 
   resources :notes
+
+  root to: 'notes#index'
 end

@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-md navbar-light sticky-top p-3 mb-5" style="background-color:#b0d7f4;">
+  <div class="container">
+    <a class="navbar-brand" href="#">Pofia</a>
+    <ul class="navbar-nav">
+      <% if user_signed_in? %>
+      <li class="nav-item">
+        <i class="fa fa-home fa-2x nav-link"></i>
+      </li>
+      <li class="nav-item">
+        <%= link_to "#{current_user.name}さんのマイページへ", mypage_path(current_user), :class => "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to '新規投稿', new_note_path, :class => "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to ' logout', destroy_user_session_path, method: :delete, :class => "nav-link"%>
+      </li>
+      <% else %>
+      <li class="nav-item">
+        <i class="fa fa-home fa-2x nav-link"></i>
+      </li>
+      <li class="nav-item">About</li>
+      <li class="nav-item">
+        <%= link_to " Sign up",new_user_registration_path, :class => "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to " Log in",user_session_path, :class => "nav-link" %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
