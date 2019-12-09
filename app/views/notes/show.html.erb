@@ -1,25 +1,44 @@
-<div class="container">
+<div class="container mt-5">
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-md-10 card">
+			<h4 class="display-4 text-center p-3"><%= @note.title %></h4>
 
-<h2>投稿詳細画面</h2>
+			<p class="text-center">URL:<%= @note.url %></p>
 
-	<h3>URL</h3>
-	<%= @note.url %>
+			<div class="col-md-10 mx-auto no-gutters">
 
-	<h3>タグ</h3>
-
-
-	<% @note.tag_list.each do |tag| %>
-	<!-- 仮のタグ付け機能 -->
-	<span class="badge badge-primary"><%= tag %></span>
-	<% end %>
-
-	<h3>タイトル</h3>
-	<%= @note.title %>
-
-	<h3>概要</h3>
-	<%= @note.introduction %>
-
-	<h3>本文</h3>
-
-		<%= @note.body %>
+				<% @note.tag_list.each do |tag| %>
+				<!-- 仮のタグ付け機能 -->
+				<span class="badge badge-primary"><%= tag %></span>
+				<% end %>
+				<% if @note.user.id == current_user.id %>
+				<div class="col-md-3 float-right my-3">
+					<%= link_to "編集する", edit_note_path(@note.id), :class=>"btn btn-sm  btn-success" %>
+					<%= link_to "削除する", note_path(@note.id),method: :delete, :class=>"btn btn-sm btn-danger",data: { confirm: '削除しますか？' } %>
+				</div>
+				<% end %>
+				<div class="col-md-3">
+					<div class="card p-3 mt-3">
+						<div class="row">
+							<%= attachment_image_tag @note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "d-block border rounded-circle mr-1 ml-1 mt-1" %>
+							<p class="h4 align-middle p-3"><%= @note.user.name %></p>
+						</div>
+					</div>
+				</div>
+				<div class="card p-4 mt-4">
+					<div class="row">
+						<div class="col-md-2"><p class="h5 font-italic">概要</p></div>
+						<div class="col-md-10">
+							<p class=" text-justify"><%= @note.introduction %></p>
+						</div>
+					</div>
+				</div>
+				<div class="card p-4 my-5">
+					<p class="text-justify"><%= @note.body %></p>
+				</div>
+			</div>
+		</div>
+		<div class="col"></div>
+	</div>
 </div>
