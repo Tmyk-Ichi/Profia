@@ -1,0 +1,15 @@
+<div class="container">
+	<div class="row mt-5">
+		<div class="col"></div>
+		<div class ="col-md-6 mt-3">
+			<p class="display-4 mt-5 text-center">ReNAME&ensp;<i class="fas fa-book-open"></i></p>
+			<%= form_with model: @notebook do |f| %>
+			<div class="input-group my-3">
+				<%= f.text_area :title, :class => "form-control", placeholder:"ノートブック名を記入" %>
+				<%= f.submit "保存する", :class => "btn btn-primary input-group-append"%>
+				<% end %>
+			</div>
+		</div>
+		<div class="col"></div>
+	</div>
+</div>

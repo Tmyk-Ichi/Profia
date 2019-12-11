@@ -12,7 +12,7 @@
 <body>
 
   <!-- header あとで部分テンプレートに移動 -->
-  <nav class="navbar navbar-expand-md navbar-light sticky-top mb-5 p-3" style="background-color:#b0d7f4;">
+  <nav class="navbar navbar-expand-md navbar-light mb-5 p-3" style="background-color:#b0d7f4;">
     <div class="container">
       <h3 class="nav-brand"><i class="fas fa-bookmark"></i>&ensp;Pofia</h3>
       <ul class="navbar-nav">
@@ -30,6 +30,11 @@
         <li class="nav-item">
           <%= link_to new_note_path do %>
           <i class="fas fa-sticky-note fa-2x nav-link"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to notebooks_path do %>
+          <i class="fas fa-book-open fa-2x nav-link"></i>
           <% end %>
         </li>
         <li class="nav-item">
@@ -62,7 +67,7 @@
   </nav>
   <%= yield %>
   <!-- footer あとで部分テンプレートに移動 -->
-  <footer class="py-4 mt-5 text-light sticky-bottom" style="background-color:#b0d7f4;">
+  <footer class="py-4 mt-5 text-light" style="background-color:#b0d7f4;position:absolute;bottom:0;width:100%;">
     <div class="container text-center">
       <p><small>&copy;2019.Pofia</small></p>
     </div>

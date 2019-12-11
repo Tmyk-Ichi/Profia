@@ -1,5 +1,5 @@
 <div class="container mt-5">
-	<h4 class="display-4 text-center mb-5">MYpage</h4>
+	<h4 class="display-4 text-center pt-5 pb-3">MYpage</h4>
 	<div class ="row">
 		<%= attachment_image_tag @user, :profile_image, size: '150x150', fallback: "no_image.jpg", :class => "d-block mx-auto border rounded-circle mb-2" %>
 	</div>
@@ -9,7 +9,7 @@
 			<h3><%= @user.name %></h3>
 			<% if @user.id == current_user.id %>
 			<%= link_to edit_user_path(current_user.id) do%>
-			<i class="fas fa-pencil-alt fa-la" aria-hidden="true" style="padding:50%;"></i>
+			<i class="fas fa-pencil-alt fa-la" aria-hidden="true" style="padding:50%; color:grey;"></i>
 			<% end %>
 			<% end %>
 		</div>
@@ -17,9 +17,10 @@
 		<p><%= @user.introduction %></p>
 	</div>
 
-	<div class="row justtify-content-center mt-5">
+	<div class="row justtify-content-center my-5">
 		<div class="col"></div>
 		<div class="col-md-10">
+			<p class="display-4 text-center py-5">My Notes</p>
 			<div class="card-columns">
 				<% @notes.each do |note| %>
 				<%= link_to note_path(note.id) do %>

@@ -5,7 +5,14 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   get "users/:id" => "users#show", as: :mypage
 
-  resources :notes
+  resources  :notes do
+  	resource :favorites, only: [:create, :destroy]
+  	resources :note_comments, only: [:create, :destroy]
+  end
+
+  resources :notebooks, only: [:index, :show, :create, :update, :destroy, :edit]
+
+  resources :notebook_notes, only: [:create, :destroy]
 
   root to: 'notes#index'
 end

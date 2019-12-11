@@ -16,6 +16,8 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require turbolinks
+
+//= require cocoon
 //= require_tree .
 
 

@@ -1,46 +1,129 @@
-<div class="container mt-5">
+<div class="container my-5">
 	<div class="row">
 		<div class="col"></div>
 		<div class="col-md-10 card">
-			<h4 class="display-4 text-center p-3"><%= @note.title %></h4>
+			<p class="display-4 text-center p-5"><%= @note.title %></p>
 
 			<p class="text-center">URL:<%= @note.url %></p>
+			<div class="row justify-content-center">
+				<div class="col-md-10">
 
-			<div class="col-md-10 mx-auto no-gutters">
+					<% @note.tag_list.each do |tag| %>
+					<!-- 仮のタグ付け機能 -->
+					<span class="badge badge-primary"><%= tag %></span>
+					<% end %>
 
-				<% @note.tag_list.each do |tag| %>
-				<!-- 仮のタグ付け機能 -->
-				<span class="badge badge-primary"><%= tag %></span>
-				<% end %>
-				<% if user_signed_in? %>
-				<% if @note.user.id == current_user.id %>
-				<div class="col-md-3 float-right my-3">
-					<%= link_to "編集する", edit_note_path(@note.id), :class=>"btn btn-sm  btn-success" %>
-					<%= link_to "削除する", note_path(@note.id),method: :delete, :class=>"btn btn-sm btn-danger",data: { confirm: '削除しますか？' } %>
-				</div>
-				<% end %>
-				<%end%>
-				<div class="col-md-3">
-					<div class="card p-3 mt-3">
+					<% if user_signed_in? %>
+					<% if @note.user.id == current_user.id %>
+					<div class="row justify-content-end">
+						<div class="col-md-3 my-3">
+							<%= link_to "編集する", edit_note_path(@note.id), :class=>"btn btn-sm  btn-success" %>
+							<%= link_to "削除する", note_path(@note.id),method: :delete, :class=>"btn btn-sm btn-danger",data: { confirm: '削除しますか？' } %>
+						</div>
+					</div>
+					<% end %>
+					<%end%>
+
+					<div class="row justify-content-between no-gutters my-3">
+						<div class="col-md-3">
+							<%= link_to user_path(@note.user.id) do %>
+							<div class="card">
+								<div class="card-body">
+									<%= attachment_image_tag @note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
+									<p class="h4"><%= @note.user.name %></p>
+								</div>
+							</div>
+							<% end %>
+						</div>
+						<div class="col-md-6">
+							<%if user_signed_in? %>
+							<div class="card">
+								<div class="card-body text-center">
+							<% if @note.favorited_by?(current_user) %>
+							<%= link_to note_favorites_path(@note), method: :delete  do %>
+							<i class="fas fa-heart fa-2x" style="color:red;"></i>
+							<% end %>
+							<p><%= @note.favorites.count %>いいね</p>
+							<% else %>
+							<%= link_to note_favorites_path(@note), method: :post do %>
+							<i class="fas fa-heart fa-2x" style="color:grey;"></i>
+							<% end %>
+							<p><%= @note.favorites.count %>いいね</p>
+							<% end %>
+
+							<%= form_with model: @notebook_note do |f| %>
+							<%= f.hidden_field :note_id, value: @note.id %>
+							<%= f.collection_select :notebook_id, Notebook.where(user_id: current_user.id), :id, :title, :prompt => "選択してください" %>
+							<%= f.submit "ノートブックに保存", :class => "btn btn-sm btn-info"%>
+							<% end %>
+						    </div>
+						    </div>
+							<% else %>
+							<div class="alert alert-info">
+								<p>ログイン後にお気に入り機能などが使用できるようになります</p>
+							</div>
+							<%end%>
+						</div>
+					</div>
+					<div class="card p-4 mt-4">
 						<div class="row">
-							<%= attachment_image_tag @note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "d-block border rounded-circle mr-1 ml-1 mt-1" %>
-							<p class="h4 align-middle p-3"><%= @note.user.name %></p>
+							<div class="col-md-2"><p class="h5 font-italic">概要</p></div>
+							<div class="col-md-10">
+								<p class=" text-justify"><%= @note.introduction %></p>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="card p-4 mt-4">
-					<div class="row">
-						<div class="col-md-2"><p class="h5 font-italic">概要</p></div>
-						<div class="col-md-10">
-							<p class=" text-justify"><%= @note.introduction %></p>
-						</div>
+					<div class="card p-4 my-5">
+						<p class="text-justify"><%= @note.body %></p>
 					</div>
-				</div>
-				<div class="card p-4 my-5">
-					<p class="text-justify"><%= @note.body %></p>
 				</div>
 			</div>
 		</div>
 		<div class="col"></div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-md-10 card mt-5">
+			<h4 class="text-center my-5">Comments
+				<small><%= @note.note_comments.count %>件</small>
+			</h4>
+
+			<% @note.note_comments.each do |note_comment| %>
+			<div class="row border-bottom p-3 no-gutters">
+				<div class="col-md-2">
+					<h5><%= note_comment.user.name %></h5>
+					<small class="text-muted"><%= note_comment.created_at.strftime('%Y/%m/%d') %></small>
+				</div>
+				<div class="col-md-10">
+					<p><%= note_comment.comment %></p>
+					<% if user_signed_in? %>
+					<% if note_comment.user.id == current_user.id %>
+					<%= link_to "削除する",note_note_comment_path(@note, note_comment), method: :delete, :class => "btn btn-sm btn-outline-danger m-1 float-md-right"%>
+					<% end %>
+					<% end %>
+				</div>
+			</div>
+			<% end %>
+
+			<% if user_signed_in? %>
+			<%= form_for [@note, @note_comment] do |f| %>
+			<div class="row mt-5">
+				<div class="col-sm-12">
+					<%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに入力してください" %>
+				</div>
+			</div>
+			<%= f.submit "送信する", class: "btn btn-primary d-block mx-auto my-3" %>
+			<% end %>
+			<% else %>
+			<div class="row">
+				<div class="col"></div>
+				<div class="col-md-6">
+					<div class="alert alert-info my-2">
+						<p class="text-center">コメントをするにはログインする必要があります</p>
+					</div>
+				</div>
+				<div class="col"></div>
+			</div>
+			<% end %>
+		</div>
 	</div>
 </div>
