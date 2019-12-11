@@ -16,6 +16,8 @@ class NotesController < ApplicationController
 
 	def show
 		@note = Note.find(params[:id])
+		@note_comment = NoteComment.new
+		@notebook_note = NotebookNote.new
 	end
 
 	def edit

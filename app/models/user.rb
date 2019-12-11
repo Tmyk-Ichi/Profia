@@ -7,4 +7,7 @@ class User < ApplicationRecord
   attachment :profile_image
 
   has_many :notes, dependent: :destroy
+  has_many :note_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :notebooks, dependent: :destroy
 end

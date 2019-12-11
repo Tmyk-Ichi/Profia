@@ -1,7 +1,7 @@
 <div class = "container pt-5">
   <p class ="h2 text-center">投稿画面</p>
-  <div class="row">
-    <div class="col-md-6 mx-auto">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
 	<%= form_with model: @note do |f| %>
 
 		<% if @note.errors.any? %>
@@ -36,7 +36,7 @@
 		<%= f.text_area :body, :class =>"form-control", :size=>"60x10", placeholder:"ノートの本文を記入" %>
 	</div>
 
-		<%= f.submit "保存する", :class => "btn btn-primary d-block text-center mx-auto"%>
+		<%= f.submit "保存する", :class => "btn btn-primary d-block text-center mx-auto mb-5"%>
     <% end %>
    </div>
   </div>
