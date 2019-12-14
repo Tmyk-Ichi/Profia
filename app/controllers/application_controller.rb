@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 	#diviseの機能が使われる場合、その前に実行
 	before_action :configure_permitted_parameters, if: :devise_controller?
+    before_action :set_search
 
 	#ログイン後のページを設定
 	def after_sign_in_path_for(resource)
@@ -13,6 +14,12 @@ class ApplicationController < ActionController::Base
 	#ログアウト後のページを設定
 	def after_sign_out_path_for(resource)
 		new_user_session_path
+	end
+
+	#検索窓の設定
+	def set_search
+		@search = Note.ransack(params[:q])
+		@search_notes = @search.result
 	end
 
 	protected

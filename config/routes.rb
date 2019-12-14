@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   get "users/:id" => "users#show", as: :mypage
 
+  get "notes/result" => "notes#result", as: :result
+
   resources  :notes do
   	resource :favorites, only: [:create, :destroy]
   	resources :note_comments, only: [:create, :destroy]
