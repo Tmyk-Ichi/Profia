@@ -1,10 +1,12 @@
 <div class="container my-5">
-	<div class="row">
-		<div class="col"></div>
-		<div class="col-md-10 card">
+	<div class="row justify-content-center">
+		<div class="col-md-10 border">
 			<p class="display-4 text-center p-5"><%= @note.title %></p>
 
-			<p class="text-center">URL:<%= @note.url %></p>
+			<div class="row justify-content-center my-3">
+
+			<iframe width="700" height="394" src="https://www.youtube.com/embed/<%= @note.url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
 			<div class="row justify-content-center">
 				<div class="col-md-10">
 
@@ -24,48 +26,41 @@
 					<% end %>
 					<%end%>
 
-					<div class="row justify-content-between no-gutters my-3">
+					<div class="row justify-content-between profile">
 						<div class="col-md-3">
-							<%= link_to user_path(@note.user.id) do %>
-							<div class="card">
-								<div class="card-body">
-									<%= attachment_image_tag @note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
-									<p class="h4"><%= @note.user.name %></p>
-								</div>
-							</div>
-							<% end %>
+					                <%= link_to user_path(@note.user.id) do %>
+									<%= attachment_image_tag @note.user, :profile_image, size: '70x70', fallback: "no_image.jpg", :class => "border rounded-circle" %>
+									<p class="h4 d-inline"><%= @note.user.name %></p>
+									<% end %>
 						</div>
-						<div class="col-md-6">
+       					<div class="col-md-8">
 							<%if user_signed_in? %>
-							<div class="card">
-								<div class="card-body text-center">
-							<% if @note.favorited_by?(current_user) %>
-							<%= link_to note_favorites_path(@note), method: :delete  do %>
-							<i class="fas fa-heart fa-2x" style="color:red;"></i>
-							<% end %>
-							<p><%= @note.favorites.count %>いいね</p>
+									<% if @note.favorited_by?(current_user) %>
+									<%= link_to note_favorites_path(@note), method: :delete  do %>
+									<i class="fas fa-heart fa-2x" style="color:red;"></i>
+									<% end %>
+									<p class="d-inline"><%= @note.favorites.count %>いいね</p>
+									<% else %>
+									<%= link_to note_favorites_path(@note), method: :post do %>
+									<i class="fas fa-heart fa-2x" style="color:grey;"></i>
+									<% end %>
+									<p class="d-inline"><%= @note.favorites.count %>いいね</p>
+									<% end %>
+									<div class="d-inline">
+									<%= form_with model: @notebook_note do |f| %>
+									<%= f.hidden_field :note_id, value: @note.id %>
+									<%= f.collection_select :notebook_id, Notebook.where(user_id: current_user.id), :id, :title, :prompt => "選択してください" %>
+									<%= f.submit "ノートブックに保存", :class => "btn btn-sm btn-info"%>
+									<% end %>
+								    </div>
 							<% else %>
-							<%= link_to note_favorites_path(@note), method: :post do %>
-							<i class="fas fa-heart fa-2x" style="color:grey;"></i>
-							<% end %>
-							<p><%= @note.favorites.count %>いいね</p>
-							<% end %>
-
-							<%= form_with model: @notebook_note do |f| %>
-							<%= f.hidden_field :note_id, value: @note.id %>
-							<%= f.collection_select :notebook_id, Notebook.where(user_id: current_user.id), :id, :title, :prompt => "選択してください" %>
-							<%= f.submit "ノートブックに保存", :class => "btn btn-sm btn-info"%>
-							<% end %>
-						    </div>
-						    </div>
-							<% else %>
-							<div class="alert alert-info">
+							<div class="alert alert-info text-center">
 								<p>ログイン後にお気に入り機能などが使用できるようになります</p>
 							</div>
 							<%end%>
 						</div>
-					</div>
-					<div class="card p-4 mt-4">
+						</div>
+					<div class="border p-4 mt-4">
 						<div class="row">
 							<div class="col-md-2"><p class="h5 font-italic">概要</p></div>
 							<div class="col-md-10">
@@ -73,16 +68,15 @@
 							</div>
 						</div>
 					</div>
-					<div class="card p-4 my-5">
+					<div class="border p-4 my-5">
 						<p class="text-justify"><%= @note.body %></p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col"></div>
 	</div>
 	<div class="row justify-content-center">
-		<div class="col-md-10 card mt-5">
+		<div class="col-md-10 border mt-5">
 			<h4 class="text-center my-5">Comments
 				<small><%= @note.note_comments.count %>件</small>
 			</h4>

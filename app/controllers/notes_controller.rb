@@ -5,6 +5,11 @@ class NotesController < ApplicationController
 
 	def create
 		@note = Note.new(note_params)
+		#youtube URLの切り出し
+		youtube_url = params[:note][:url]
+        youtube_url = youtube_url.last(11)
+        @note.url = youtube_url
+        #切り出し終了
 		@note.user_id = current_user.id
 	    @note.save
 	    redirect_to note_path(@note.id)
