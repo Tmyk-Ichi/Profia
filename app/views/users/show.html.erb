@@ -13,18 +13,17 @@
 			<% end %>
 			<% end %>
 		</div>
-
-		<p><%= @user.introduction %></p>
+		<p class="text-center p-4"><%= @user.introduction %></p>
 	</div>
 
-	<div class="row justtify-content-center my-5">
-		<div class="col"></div>
+	<div class="row justify-content-center my-5">
 		<div class="col-md-10">
 			<p class="display-4 text-center py-5">My Notes</p>
 			<div class="card-columns">
 				<% @notes.each do |note| %>
 				<%= link_to note_path(note.id) do %>
 				<div class="card shadow mb-5 text-center">
+					<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
 					<div class="card-body">
 						<h4 class="card-title"><%= note.title%></h4>
 						<ul class="list-group list-group-flush">
@@ -52,6 +51,5 @@
 				<% end %>
 			</div>
 		</div>
-		<div class="col"></div>
 	</div>
 </div>

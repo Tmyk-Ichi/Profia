@@ -8,6 +8,7 @@
 				<%= link_to note_path(note.id) do %>
 				<div class="card shadow mb-5 text-center">
 					<div class="card-body">
+						<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
 						<h4 class="card-title"><%= note.title%></h4>
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item"><p class="text-truncate"><%= note.introduction %></p></li>
@@ -16,8 +17,6 @@
 								<%= attachment_image_tag note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
 								<%= note.user.name %>
 							</li>
-
-
 							<li class="list-group-item">
 								<small><%= note.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
 							</li>
