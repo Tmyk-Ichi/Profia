@@ -4,7 +4,7 @@
 		<div class="col-md-10">
 			<p class="display-4 text-center py-5">検索結果</p>
 			<div class="card-columns">
-				<% @notes.each do |note| %>
+				<% @search_notes.each do |note| %>
 				<%= link_to note_path(note.id) do %>
 				<div class="card shadow mb-5 text-center">
 					<div class="card-body">

@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="card my-5">
-		<div class="card-header">
+		<div class="card-header" style="background-color:#b0d7f4;">
 			<ul class="nav justify-content-center nav-justified mt-3">
 				<li class="nav-item">
 					<a class="nav-link active underline" href="#notes" data-toggle="tab"><p>NOTES</p></a>
@@ -85,9 +85,6 @@
 						<li class="nav-item">
 							<a class="nav-link underline" href="#favorites" data-toggle="tab">いいね一覧</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link underline" href="#bookmark" data-toggle="tab">bookmark</a>
-						</li>
 					</ul>
 				</div>
 				<div class="tab-content">
@@ -104,8 +101,8 @@
 							<div class="col-md-5">
 								<div class="card text-center p-3">
 									<div class="card-body">
-										<p class="card-title">ブックマーク数</p>
-										<p class="card-text">ブックマーク数を表示予定</p>
+										<p class="card-title">いいね数</p>
+										<p class="card-text"><%= @user.favorites.count%></p>
 									</div>
 								</div>
 							</div>
@@ -115,11 +112,15 @@
 						<div class="card-deck">
 							<% @user.all_following.each do |follow| %>
 							<div class="col-md-6">
-								<div class="card">
-									<div class="card-body">
-										<p class="card-text"><%= follow.name %></p>
+								<%= link_to user_path(follow) do %>
+								<div class="media p-2 border mb-3">
+									<%= attachment_image_tag follow, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "mr-3"%>
+									<div class="media-body">
+										<h5><%= follow.name %></h5>
+										<p><%= follow.introduction %></p>
 									</div>
 								</div>
+								<% end %>
 							</div>
 							<% end %>
 						</div>
@@ -128,11 +129,15 @@
 						<div class="card-deck">
 							<% @user.followers.each do |follower| %>
 							<div class="col-md-6">
-								<div class="card">
-									<div class="card-body">
-										<p class="card-text"><%= follower.name %></p>
+								<%= link_to user_path(follower) do %>
+								<div class="media p-2 border mb-3">
+									<%= attachment_image_tag follower, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "mr-3"%>
+									<div class="media-body">
+										<h5><%= follower.name %></h5>
+										<p><%= follower.introduction %></p>
 									</div>
 								</div>
+								<% end %>
 							</div>
 							<% end %>
 						</div>
@@ -142,6 +147,7 @@
 							<div class="col-md-10">
 								<div class ="card-columns">
 									<% @user.favorites.each do |f|  %>
+									<%= link_to note_path(f.note.id) do %>
 									<div class="card shadow mb-5 text-center">
 										<img src="https://i.ytimg.com/vi/<%= f.note.url%>/hqdefault.jpg", class="card-img-top">
 										<div class="card-body">
@@ -152,6 +158,7 @@
 										</div>
 									</div>
 									<% end %>
+									<% end %>
 								</div>
 							</div>
 						</div>
@@ -160,4 +167,6 @@
 			</div>
 		</div>
 	</div>
+</div>
+</div>
 </div>
