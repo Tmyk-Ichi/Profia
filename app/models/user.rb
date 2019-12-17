@@ -10,4 +10,8 @@ class User < ApplicationRecord
   has_many :note_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :notebooks, dependent: :destroy
+
+  #フォローフォロワー機能
+  acts_as_follower
+  acts_as_followable
 end

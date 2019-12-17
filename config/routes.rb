@@ -5,7 +5,12 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   get "users/:id" => "users#show", as: :mypage
 
+  #フォローフォロワー機能
+  post "users/:id/follow" => "users#follow", as: :follow_users
+  post "users/:id/unfollow" => "users#unfollow", as: :unfollow_users
+
   get "notes/result" => "notes#result", as: :result
+
 
   resources  :notes do
   	resource :favorites, only: [:create, :destroy]
