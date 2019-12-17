@@ -7,38 +7,32 @@
       <li class="nav-item mr-1">
         <%= link_to root_path do %>
         <i class="fa fa-home fa-2x nav-link"></i>
-        <small class="d-block nav-link">Home</small>
         <% end %>
       </li>
       <li class="nav-item">
         <%= link_to mypage_path(current_user) do%>
         <i class="fas fa-portrait fa-2x nav-link text-center"></i>
-        <small class="nav-link">Mypage</small>
         <%end%>
       </li>
       <li class="nav-item">
         <%= link_to new_note_path do %>
         <i class="fas fa-sticky-note fa-2x nav-link"></i>
-        <small class="nav-link">Post</small>
         <% end %>
       </li>
       <li class="nav-item">
         <%= link_to notebooks_path do %>
         <i class="fas fa-book-open fa-2x nav-link"></i>
-        <small class="nav-link">Notebook</small>
         <% end %>
       </li>
       <li class="nav-item">
         <%= link_to destroy_user_session_path, method: :delete do%>
         <i class="fas fa-sign-out-alt fa-2x nav-link"></i>
-        <small class="nav-link">Logout</small>
         <% end %>
       </li>
       <% else %>
       <li class="nav-item">
         <%= link_to root_path do %>
         <i class="fa fa-home fa-2x nav-link"></i>
-        <small class="nav-link">Home</small>
         <% end %>
       </li>
       <li class="nav-item">
@@ -57,7 +51,7 @@
       <% end %>
     </ul>
     <form class="form-inline">
-    <%= search_form_for @search, url: result_path do |f| %>
+    <%= search_form_for @q, url: result_path do |f| %>
       <div class="input-group">
         <div class ="input-group-prepend">
           <%= f.text_field :title_cont, placeholder: "検索するノートを入力...", :class => "form-control"%>

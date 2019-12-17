@@ -14,6 +14,20 @@ class UsersController < ApplicationController
   	redirect_to user_path(@user.id)
   end
 
+  def follow
+    @user = User.find(params[:id])
+    #ログイン中のユーザーで対象のユーザー(@user)をフォローする
+    current_user.follow(@user)
+    redirect_to user_path(@user)
+  end
+
+  def unfollow
+    @user = User.find(params[:id])
+    #ログイン中のユーザーで対象のユーザー(@user)をフォロー解除する
+    current_user.stop_following(@user)
+    redirect_to user_path(@user)
+  end
+
   private
 
   def user_params
