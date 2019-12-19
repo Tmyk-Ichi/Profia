@@ -14,9 +14,13 @@
  *= require_self
  */
 // Custom bootstrap variables must be set or imported *before* bootstrap.
+// ここからbootswatch
+@import "minty/variables";
 @import "bootstrap";
+@import "minty/bootswatch";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import "*";
 
 body{
 	min-height:100vh;
@@ -24,17 +28,17 @@ body{
 	padding-bottom:88px;
 }
 
-.card{
-	color: black;
-	a{
-		color: black;
-		text-decoration: none;
-	}
+// .card{
+// 	color: black;
+// 	a{
+// 		color: black;
+// 		text-decoration: none;
+// 	}
 
-	.btn{
-		color:white;
-	}
-}
+// 	.btn{
+// 		color:white;
+// 	}
+// }
 
 // .card:hover {
 //   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
@@ -95,3 +99,10 @@ body{
 	transform:scaleX(1);
 }
 
+
+//タグリストのcss
+.tag-x-small { font-size:  80%; }
+.tag-small   { font-size:  90%; }
+.tag-medium  { font-size: 100%; }
+.tag-large   { font-size: 120%; }
+.tag-x-large { font-size: 150%; }

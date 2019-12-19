@@ -1,125 +1,111 @@
 <div class="container my-5">
 	<div class="row justify-content-center">
-		<div class="col-md-10 border">
-			<p class="display-4 text-center p-5"><%= @note.title %></p>
+		<div class="col-md-10">
+			<div class="card pb-3">
+				<p class="display-4 text-center p-5"><%= @note.title %></p>
 
-			<div class="row justify-content-center my-3">
+				<div class="row justify-content-center my-3">
 
-			<iframe width="700" height="394" src="https://www.youtube.com/embed/<%= @note.url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-10">
+					<iframe width="700" height="394" src="https://www.youtube.com/embed/<%= @note.url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</div>
 
-					<% @note.tag_list.each do |tag| %>
-					<!-- 仮のタグ付け機能 -->
-					<span class="badge badge-primary"><%= tag %></span>
-					<% end %>
-
-					<% if user_signed_in? %>
-					<% if @note.user.id == current_user.id %>
-					<div class="row justify-content-end">
-						<div class="col-md-3 my-3">
-							<%= link_to "編集する", edit_note_path(@note.id), :class=>"btn btn-sm  btn-success" %>
-							<%= link_to "削除する", note_path(@note.id),method: :delete, :class=>"btn btn-sm btn-danger",data: { confirm: '削除しますか？' } %>
-						</div>
+				<div class="row justify-content-center">
+					<div class="col-md-10">
+                    <div class="tag-list p-4">
+                    	<p>タグ一覧</p>
+						<% @note.tag_list.each do |tag| %>
+						<!-- 仮のタグ付け機能 -->
+						<span class="badge badge-primary"><%= link_to tag, tags_notes_path(tag_name: tag), :class=>"text-white"%></span>
+						<% end %>
 					</div>
-					<% end %>
-					<%end%>
 
-					<div class="row justify-content-between profile">
-						<div class="col-md-3">
-					                <%= link_to user_path(@note.user.id) do %>
-									<%= attachment_image_tag @note.user, :profile_image, size: '70x70', fallback: "no_image.jpg", :class => "border rounded-circle" %>
-									<p class="h4 d-inline"><%= @note.user.name %></p>
-									<% end %>
+						<% if user_signed_in? %>
+						<% if @note.user.id == current_user.id %>
+						<div class="row justify-content-end">
+							<div class="col-md-3 my-3">
+								<%= link_to "編集する", edit_note_path(@note.id), :class=>"btn btn-sm  btn-success" %>
+								<%= link_to "削除する", note_path(@note.id),method: :delete, :class=>"btn btn-sm btn-danger",data: { confirm: '削除しますか？' } %>
+							</div>
 						</div>
-       					<div class="col-md-8">
-							<%if user_signed_in? %>
-									<% if @note.favorited_by?(current_user) %>
-									<%= link_to note_favorites_path(@note), method: :delete  do %>
-									<i class="fas fa-heart fa-2x" style="color:red;"></i>
-									<% end %>
-									<p class="d-inline"><%= @note.favorites.count %>いいね</p>
-									<% else %>
-									<%= link_to note_favorites_path(@note), method: :post do %>
-									<i class="fas fa-heart fa-2x" style="color:grey;"></i>
-									<% end %>
-									<p class="d-inline"><%= @note.favorites.count %>いいね</p>
-									<% end %>
-									<div class="d-inline">
+						<% end %>
+						<%end%>
+
+<div id="success-message"></div>
+
+<!-- 投稿のメニューバーを作成 -->
+<div class ="row justify-content-between no-gutters">
+	<div class="col-md-3">
+
+                       <!-- プロフィール -->
+                       <div class ="card p-4 pl-5">
+						<div class="row">
+								<%= link_to user_path(@note.user.id) do %>
+								<%= attachment_image_tag @note.user, :profile_image, size: '70x70', fallback: "no_image.jpg", :class => "border rounded-circle" %>
+								<p class="d-inline"><%= @note.user.name %></p>
+								<% end %>
+							</div>
+					    </div>
+	</div>
+
+    <div class="col-md6">
+    	<div class="card p-3">
+    <ul class="nav">
+
+							<div id="favorite_btn">
+								<%= render 'favorite_form', note: @note, favorite: @favorite %>
+							</div>
+							<li class="nav-item mr-3">
+							<p>閲覧数</p>
+                   <%=@note.impressionist_count %>
+						    </li>
+								<%if user_signed_in? %>
+								<li class="nav-item">
 									<%= form_with model: @notebook_note do |f| %>
 									<%= f.hidden_field :note_id, value: @note.id %>
-									<%= f.collection_select :notebook_id, Notebook.where(user_id: current_user.id), :id, :title, :prompt => "選択してください" %>
-									<%= f.submit "ノートブックに保存", :class => "btn btn-sm btn-info"%>
+									<%= f.collection_select :notebook_id, Notebook.where(user_id: current_user.id), :id, :title, :prompt => "選択してください" %><br>
+									<%= f.submit "ノートブックに保存", :class => "btn btn-sm btn-info d-inline mt-3"%>
 									<% end %>
-								    </div>
-							<% else %>
-							<div class="alert alert-info text-center">
-								<p>ログイン後にお気に入り機能などが使用できるようになります</p>
-							</div>
-							<%end%>
-						</div>
-						</div>
-					<div class="border p-4 mt-4">
-						<div class="row">
-							<div class="col-md-2"><p class="h5 font-italic">概要</p></div>
-							<div class="col-md-10">
-								<p class=" text-justify"><%= @note.introduction %></p>
-							</div>
-						</div>
-					</div>
-					<div class="border p-4 my-5">
-						<p class="text-justify"><%= @note.body %></p>
-						<strong>閲覧数</strong>
-						<%=  @note.impressionist_count %>
-					</div>
-				</div>
-			</div>
-		</div>
+								</li>
+								<% else %>
+								<div class="alert alert-info text-center">
+									<p>ログイン後にお気に入り機能などが使用できるようになります</p>
+								</div>
+								<%end%>
+	</ul>
 	</div>
-	<div class="row justify-content-center">
-		<div class="col-md-10 border mt-5">
-			<h4 class="text-center my-5">Comments
-				<small><%= @note.note_comments.count %>件</small>
-			</h4>
+</div>
 
-			<% @note.note_comments.each do |note_comment| %>
-			<div class="row border-bottom p-3 no-gutters">
-				<div class="col-md-2">
-					<h5><%= note_comment.user.name %></h5>
-					<small class="text-muted"><%= note_comment.created_at.strftime('%Y/%m/%d') %></small>
-				</div>
-				<div class="col-md-10">
-					<p><%= note_comment.comment %></p>
-					<% if user_signed_in? %>
-					<% if note_comment.user.id == current_user.id %>
-					<%= link_to "削除する",note_note_comment_path(@note, note_comment), method: :delete, :class => "btn btn-sm btn-outline-danger m-1 float-md-right"%>
-					<% end %>
-					<% end %>
-				</div>
-			</div>
-			<% end %>
+</div>
+<!-- ここまでメニューバー -->
 
-			<% if user_signed_in? %>
-			<%= form_for [@note, @note_comment] do |f| %>
-			<div class="row mt-5">
-				<div class="col-sm-12">
-					<%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに入力してください" %>
-				</div>
-			</div>
-			<%= f.submit "送信する", class: "btn btn-primary d-block mx-auto my-3" %>
-			<% end %>
-			<% else %>
-			<div class="row">
-				<div class="col"></div>
-				<div class="col-md-6">
-					<div class="alert alert-info my-2">
-						<p class="text-center">コメントをするにはログインする必要があります</p>
+
+
+
+						<!-- ノートの本文開始 -->
+						<div class="card p-4 mt-4">
+							<div class="row">
+								<div class="col-md-2"><p class="h5 font-italic">概要</p></div>
+								<div class="col-md-10">
+									<p class=" text-justify"><%= @note.introduction %></p>
+								</div>
+							</div>
+						</div>
+						<div class="card p-4 my-5">
+							<p class="text-justify"><%= @note.body %></p>
+						</div>
+
+						<!-- コメントエリア開始 -->
+						<div id="comments_area">
+							<!-- 投稿されたコメント一覧をブログの詳細ページに表示するためのrender -->
+							<%= render partial: 'note_comments/index', locals: { note_comments: @note_comments, note: @note } %>
+						</div>
+						<% if user_signed_in? %>
+						<!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
+						<%= render partial: 'note_comments/form', locals: { note_comment: @note_comment, note: @note } %>
+						<% end %>
 					</div>
 				</div>
-				<div class="col"></div>
 			</div>
-			<% end %>
 		</div>
 	</div>
 </div>

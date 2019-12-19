@@ -1,0 +1,8 @@
+// id = comment_areaとした場所を書き換える記述
+//$("#comments_area").html("<%= j(render 'index', { note_comments: @note_comment.note.note_comments }) %>")
+//
+
+$("#comments_area").html("<%= escape_javascript(render 'index', { note_comments: @note_comments }) %>")
+
+//コメントエリアを空に
+$("textarea").val('')

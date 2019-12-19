@@ -1,8 +1,9 @@
 class NotebookNotesController < ApplicationController
 	def create
 		notebook_note = NotebookNote.new(notebook_note_params)
-		notebook_note.save
-		redirect_to note_path(notebook_note.note.id)
+		if notebook_note.save
+		@msg = "ノートブックに保存できました"
+	    end
 	end
 
 	def destroy

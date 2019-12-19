@@ -2,7 +2,7 @@
   <p class ="h2 text-center">編集画面</p>
   <div class="row">
     <div class="col-md-6 mx-auto">
-	<%= form_with model: @note do |f| %>
+	<%= form_with model: @note, local: true do |f| %>
 
 		<% if @note.errors.any? %>
 			<%= @note.errors.count %>件のエラーが発生しました
@@ -11,10 +11,6 @@
 			<% end %>
 		<% end %>
 
-	<div class ="form-group">
-		<%= f.label :url %>
-		<%= f.text_area :url, :class => "form-control", placeholder:"保存したいURLを貼り付けてください" %>
-	</div>
 
     <div class ="form-group">
 		<%= f.label :title, :class => "label" %>
@@ -23,7 +19,7 @@
 
     <div class ="form-group">
 		<%= f.label :tag_list %>
-			<%= f.text_field :tag_list, value: @note.tag_list.join(','), :class => "form-control", placeholder:"ノートのタグを記入"%>
+			<%= f.text_field :tag_list, value: @note.tag_list.join(','), :class => "form-control", placeholder:"ノートのタグを記入", "data-role" => "tagsinput"%>
 	</div>
 
     <div class ="form-group">

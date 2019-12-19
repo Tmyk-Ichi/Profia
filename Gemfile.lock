@@ -15,6 +15,12 @@ GIT
       activerecord (>= 4.0)
 
 GIT
+  remote: https://github.com/thomaspark/bootswatch.git
+  revision: 5141b0e9447e46a7fa106edc3e7cb7e49e9f5d63
+  specs:
+    bootswatch (4.4.1)
+
+GIT
   remote: https://github.com/twbs/bootstrap-rubygem
   revision: ef343b781ca1316ba3953295222578a65bd576c0
   specs:
@@ -95,6 +101,7 @@ GEM
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
     cocoon (1.2.14)
+    coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -163,6 +170,12 @@ GEM
     polyamorous (2.3.0)
       activerecord (>= 5.0)
     popper_js (1.14.5)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-byebug (3.7.0)
+      byebug (~> 11.0)
+      pry (~> 0.10)
     public_suffix (4.0.1)
     puma (3.12.2)
     rack (2.0.7)
@@ -291,6 +304,7 @@ DEPENDENCIES
   acts_as_follower!
   bootsnap (>= 1.1.0)
   bootstrap!
+  bootswatch!
   byebug
   capybara (>= 2.15)
   chromedriver-helper
@@ -302,6 +316,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
+  pry-byebug
   puma (~> 3.11)
   rails (~> 5.2.3)
   ransack

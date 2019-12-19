@@ -1,8 +1,5 @@
 <div class="container my-5">
-
-<!--人気順に変更予定 -->
 	<div class="row justify-content-center mt-5">
-		<div class="col"></div>
 		<div class="col-md-10">
 			<p class="display-4 text-center py-5">Popluar Notes</p>
 			<div class="card-columns">
@@ -31,10 +28,16 @@
 				<% end %>
 			</div>
 		</div>
-		<div class="col"></div>
+		<div class="col-md-2">
+			<% tag_cloud(@tags, ["tag-x-small", "tag-small", "tag-medium", "tag-large", "tag-x-large"]) do |tag, css_class| %>
+				<%= link_to tag, tags_notes_path(tag_name: tag.name), :class=> css_class%>
+			<% end %>
+
+
+		</div>
 	</div>
 
-<!--新着順に変更予定 -->
+	<!--新着順に変更予定 -->
 	<div class="row justify-content-center mt-5">
 		<div class="col"></div>
 		<div class="col-md-10">

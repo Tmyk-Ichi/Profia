@@ -80,3 +80,7 @@ gem 'jquery-rails'
 gem 'font-awesome-sass'
 
 gem 'cocoon'
+
+gem "bootswatch", github: "thomaspark/bootswatch"
+
+gem 'pry-byebug'

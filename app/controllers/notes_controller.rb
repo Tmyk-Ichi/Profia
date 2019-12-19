@@ -1,17 +1,22 @@
 class NotesController < ApplicationController
     #詳細ページを見た際のPV数を計測
     impressionist :actions => [:show]
+
+
+ #タグ一覧の取得メソッド/使われている順に並び替え
+ def tag_cloud
+  @tags = Note.tag_counts_on(:tags).order('count DESC')
+ end
+
   def new
+    #パロメータに入っている情報を渡す
     	@note = Note.new
+      youtube_url = params[:note][:url]
+      @video_id = youtube_url.split("=").last
   end
 
   def create
-    	@note = Note.new(note_params)
-	#youtube URLの切り出し
-	youtube_url = params[:note][:url]
-	youtube_url = youtube_url.last(11)
-	@note.url = youtube_url
-      #切り出し終了
+    @note = Note.new(note_params)
       @note.user_id = current_user.id
       @note.save
       redirect_to note_path(@note.id)
@@ -20,11 +25,16 @@ class NotesController < ApplicationController
   def index
   	@notes = Note.all
   	@most_viewed = Note.order('impressions_count DESC').take(6)
+
+    #タグ一覧の読み込み
+    tag_cloud
   end
 
   def show
   	@note = Note.find(params[:id])
   	@note_comment = NoteComment.new
+    @note_comments = @note.note_comments
+    #投稿を保存するノートブックと投稿の中間テーブル
   	@notebook_note = NotebookNote.new
   	impressionist(@note, nil, :unique => [:session_hash])
   end
@@ -45,7 +55,17 @@ class NotesController < ApplicationController
   	redirect_to mypage_path(current_user.id)
   end
 
-  def result
+  def tags
+    @notes = Note.tagged_with("#{params[:tag_name]}")
+    @tag_name = params[:tag_name]
+  end
+
+  def search
+  end
+
+  def youtube
+    #空のインスタンスを渡す
+    @note = Note.new
   end
 
   private

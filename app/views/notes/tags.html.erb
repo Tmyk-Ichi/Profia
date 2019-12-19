@@ -1,14 +1,14 @@
 <div class ="container">
-<div class="row justify-content-center mt-5">
+	<div class="row justify-content-center mt-5">
 		<div class="col"></div>
 		<div class="col-md-10">
-			<p class="display-4 text-center py-5">検索結果</p>
+			<p class="display-4 text-center py-5"><strong><%= @tag_name %></strong>タグの検索結果</p>
 			<div class="card-columns">
-				<% @search_notes.each do |note| %>
+				<% @notes.each do |note| %>
 				<%= link_to note_path(note.id) do %>
 				<div class="card shadow mb-5 text-center">
+					<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
 					<div class="card-body">
-						<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
 						<h4 class="card-title"><%= note.title%></h4>
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item"><p class="text-truncate"><%= note.introduction %></p></li>
@@ -17,6 +17,8 @@
 								<%= attachment_image_tag note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
 								<%= note.user.name %>
 							</li>
+
+
 							<li class="list-group-item">
 								<small><%= note.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
 							</li>
