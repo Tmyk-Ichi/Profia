@@ -23,7 +23,8 @@ class NotesController < ApplicationController
   end
 
   def index
-  	@notes = Note.all
+    #1ページに決められた分だけ、新しい順に取得
+  	@notes = Note.page(params[:page]).reverse_order
   	@most_viewed = Note.order('impressions_count DESC').take(6)
 
     #タグ一覧の読み込み
