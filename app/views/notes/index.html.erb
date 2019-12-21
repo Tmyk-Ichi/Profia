@@ -1,28 +1,26 @@
 <div class="container my-5">
-
-<!--人気順に変更予定 -->
-	<div class="row justify-content-center mt-5">
-		<div class="col"></div>
-		<div class="col-md-10">
+	<!--  -->
+	<div class="row mt-5">
+		<div class="col-md-9">
 			<p class="display-4 text-center py-5">Popluar Notes</p>
 			<div class="card-columns">
-				<% @notes.each do |note| %>
-				<%= link_to note_path(note.id) do %>
+				<% @most_viewed.each do |rank| %>
+				<%= link_to note_path(rank.id) do %>
 				<div class="card shadow mb-5 text-center">
-					<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
+					<img src="https://i.ytimg.com/vi/<%= rank.url%>/hqdefault.jpg", class="card-img-top">
 					<div class="card-body">
-						<h4 class="card-title text-truncate"><%= note.title%></h4>
+						<h4 class="card-title text-truncate"><%= rank.title%></h4>
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item"><p class="text-truncate"><%= note.introduction %></p></li>
+							<li class="list-group-item"><p class="text-truncate"><%= rank.introduction %></p></li>
 
 							<li class="list-group-item">
-								<%= attachment_image_tag note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
-								<%= note.user.name %>
+								<%= attachment_image_tag rank.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
+								<%= rank.user.name %>
 							</li>
 
 
 							<li class="list-group-item">
-								<small><%= note.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
+								<small><%= rank.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
 							</li>
 						</ul>
 					</div>
@@ -30,41 +28,39 @@
 				<% end %>
 				<% end %>
 			</div>
-		</div>
-		<div class="col"></div>
-	</div>
-
-<!--新着順に変更予定 -->
-	<div class="row justify-content-center mt-5">
-		<div class="col"></div>
-		<div class="col-md-10">
-			<p class="display-4 text-center py-5">New Notes</p>
-			<div class="card-columns">
-				<% @notes.each do |note| %>
-				<%= link_to note_path(note.id) do %>
-				<div class="card shadow mb-5 text-center">
-					<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
-					<div class="card-body">
-						<h4 class="card-title"><%= note.title%></h4>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item"><p class="text-truncate"><%= note.introduction %></p></li>
-
-							<li class="list-group-item">
-								<%= attachment_image_tag note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
-								<%= note.user.name %>
-							</li>
 
 
-							<li class="list-group-item">
-								<small><%= note.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
-							</li>
-						</ul>
-					</div>
+		<!--新着順 -->
+		<p class="display-4 text-center py-5">New Notes</p>
+		<div class="card-columns">
+			<% @notes.each do |note| %>
+			<%= link_to note_path(note.id) do %>
+			<div class="card shadow mb-5 text-center">
+				<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
+				<div class="card-body">
+					<h4 class="card-title text-truncate"><%= note.title%></h4>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><p class="text-truncate"><%= note.introduction %></p></li>
+
+						<li class="list-group-item">
+							<%= attachment_image_tag note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
+							<%= note.user.name %>
+						</li>
+						<li class="list-group-item">
+							<small><%= note.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
+						</li>
+					</ul>
 				</div>
-				<% end %>
-				<% end %>
 			</div>
+			<% end %>
+			<% end %>
 		</div>
-		<div class="col"></div>
 	</div>
+		<div class="col-md-3">
+			<% tag_cloud(@tags, ["tag-x-small", "tag-small", "tag-medium", "tag-large", "tag-x-large"]) do |tag, css_class| %>
+			<%= link_to tag, tags_notes_path(tag_name: tag.name), :class=> css_class%>
+			<% end %>
+		</div>
+	</div>
+	<%= paginate @notes, theme: 'twitter-bootstrap-4' %>
 </div>

@@ -9,10 +9,14 @@ Rails.application.routes.draw do
   post "users/:id/follow" => "users#follow", as: :follow_users
   post "users/:id/unfollow" => "users#unfollow", as: :unfollow_users
 
-  get "notes/result" => "notes#result", as: :result
-
-
   resources  :notes do
+    collection do
+    get "tags"
+    get "search"
+    get "youtube"
+    post "new"
+    post "create", as: :create
+    end
   	resource :favorites, only: [:create, :destroy]
   	resources :note_comments, only: [:create, :destroy]
   end

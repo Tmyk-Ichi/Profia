@@ -1,0 +1,24 @@
+<div id="alert-message"></div>
+
+		<h4 class="text-center my-5">Comments
+			<small><%= note_comments.count %>件</small>
+		</h4>
+		<% note_comments.each do |note_comment| %>
+		<div id="note_comment-#{note_comment.id}"></div>
+			<div class="row border-bottom p-3 no-gutters">
+				<div class="col-md-2">
+					<h5><%= link_to "#{note_comment.user.name}", user_path(note_comment.user.id) %></h5>
+					<small class="text-muted"><%= note_comment.created_at.strftime('%Y/%m/%d') %></small>
+				</div>
+				<div class="col-md-10">
+					<p><%= note_comment.comment %></p>
+					<% if user_signed_in? %>
+					<% if note_comment.user.id == current_user.id %>
+					<!--コメント削除の際に、投稿のidとコメントのidを渡す必要がある -->
+					<!-- remote:trueでjsファイルを呼び出す-->
+					<%= link_to "削除する",note_note_comment_path(note_id: @note, id: note_comment.id), method: :delete, remote:true, :class => "btn btn-sm btn-outline-danger m-1 float-md-right"%>
+					<% end %>
+					<% end %>
+				</div>
+			</div>
+		<% end %>

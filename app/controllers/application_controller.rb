@@ -19,6 +19,9 @@ class ApplicationController < ActionController::Base
 	#検索窓の設定
 	def set_search
 		@search = Note.ransack(params[:q])
+		if params[:q]
+		@search_word = params[:q][:title_or_body_cont]
+	    end
 		@search_notes = @search.result
 	end
 

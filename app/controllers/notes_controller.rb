@@ -1,49 +1,77 @@
 class NotesController < ApplicationController
-	def new
-		@note = Note.new
-	end
+    #詳細ページを見た際のPV数を計測
+    impressionist :actions => [:show]
 
-	def create
-		@note = Note.new(note_params)
-		#youtube URLの切り出し
-		youtube_url = params[:note][:url]
-        youtube_url = youtube_url.last(11)
-        @note.url = youtube_url
-        #切り出し終了
-		@note.user_id = current_user.id
-	    @note.save
-	    redirect_to note_path(@note.id)
-	end
 
-	def index
-		@notes = Note.all
-	end
+ #タグ一覧の取得メソッド/使われている順に並び替え
+ def tag_cloud
+  @tags = Note.tag_counts_on(:tags).order('count DESC')
+ end
 
-	def show
-		@note = Note.find(params[:id])
-		@note_comment = NoteComment.new
-		@notebook_note = NotebookNote.new
-	end
+  def new
+    #パロメータに入っている情報を渡す
+    	@note = Note.new
+      youtube_url = params[:note][:url]
+      @video_id = youtube_url.split("=").last
+  end
 
-	def edit
-		@note = Note.find(params[:id])
-	end
+  def create
+    @note = Note.new(note_params)
+      @note.user_id = current_user.id
+      @note.save
+      redirect_to note_path(@note.id)
+  end
 
-	def update
-		note = Note.find(params[:id])
-		note.update(note_params)
-		redirect_to note_path(note.id)
-	end
+  def index
+    #1ページに決められた分だけ、新しい順に取得
+  	@notes = Note.page(params[:page]).reverse_order
+  	@most_viewed = Note.order('impressions_count DESC').take(6)
 
-	def destroy
-		@note = Note.find(params[:id])
-		@note.destroy
-		redirect_to mypage_path(current_user.id)
-	end
+    #タグ一覧の読み込み
+    tag_cloud
+  end
 
-	private
+  def show
+  	@note = Note.find(params[:id])
+  	@note_comment = NoteComment.new
+    @note_comments = @note.note_comments
+    #投稿を保存するノートブックと投稿の中間テーブル
+  	@notebook_note = NotebookNote.new
+  	impressionist(@note, nil, :unique => [:session_hash])
+  end
 
-	def note_params
-		params.require(:note).permit(:url, :title, :tag_list, :introduction, :body)
-	end
+  def edit
+  	@note = Note.find(params[:id])
+  end
+
+  def update
+  	note = Note.find(params[:id])
+  	note.update(note_params)
+  	redirect_to note_path(note.id)
+  end
+
+  def destroy
+  	@note = Note.find(params[:id])
+  	@note.destroy
+  	redirect_to mypage_path(current_user.id)
+  end
+
+  def tags
+    @notes = Note.tagged_with("#{params[:tag_name]}")
+    @tag_name = params[:tag_name]
+  end
+
+  def search
+  end
+
+  def youtube
+    #空のインスタンスを渡す
+    @note = Note.new
+  end
+
+  private
+
+  def note_params
+  	params.require(:note).permit(:url, :title, :tag_list, :introduction, :body)
+  end
 end
