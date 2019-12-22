@@ -5,7 +5,7 @@ class CreateNotes < ActiveRecord::Migration[5.2]
       t.text :body
       t.text :introduction
       t.integer :user_id
-      t.integer :status
+      t.integer :status,default: 1, null: false, limit: 1
       t.integer :impressions_count, default: 0
       t.integer :notebook_id
       t.text :url

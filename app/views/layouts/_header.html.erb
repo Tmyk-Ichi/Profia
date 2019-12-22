@@ -32,7 +32,7 @@
     <%= search_form_for @search, url: search_notes_path do |f| %>
       <div class="input-group">
         <div class ="input-group-prepend">
-          <%= f.search_field :title_or_body_cont, placeholder: "検索するノートを入力...", :class => "form-control"%>
+          <%= f.search_field :title_or_body_cont, placeholder: "検索するノートを入力...", :class => "form-control", :required => true%>
           <%= f.submit "検索", :class => "btn btn-success my-2 my-sm-0" %>
         </div>
       </div>

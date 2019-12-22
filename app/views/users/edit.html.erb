@@ -1,42 +1,52 @@
 <%= form_for(@user) do |f| %>
 
-<div class="container pt-5">
-
-<h1 class="text-center">Profile</h1>
-
-<div class="col-md-8 mx-auto pt-5">
-<div class="row">
-	<div class ="col-md-5">
-		<%= attachment_image_tag @user, :profile_image, size: '150x150', fallback: "no_image.jpg", :class => "d-block mx-auto border rounded-circle mb-5" %>
-		<div class="input-group mx-auto">
-			<label class="input-group-btn mx-auto">
-				<span class="btn btn-block">
-		         <%= f.attachment_field :profile_image%>
-		        </span>
-		    </label>
-	    </div>
+<div class="container my-5">
+	<% if @user.errors.any? %>
+	<div class="alert alert-danger">
+		<h4 class="text-center"><%= @user.errors.count %>件のエラーが発生しました</h4>
+		<ul>
+			<% @user.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+			<% end %>
+		</ul>
 	</div>
-	<div class ="col-md-7">
+	<% end %>
 
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-         <span class="input-group-text" id="basic-addon1">ユーザー名</span>
-        </div>
-		<%= f.text_field :name, :class => "form-control" %>
-      </div>
+	<h1 class="text-center">Profile</h1>
 
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-         <span class="input-group-text" id="basic-addon1">&emsp;紹介文&emsp;</span>
-        </div>
-		<%= f.text_area :introduction, :class => "form-control", :size =>"60x5" %>
-	  </div>
+	<div class="col-md-8 mx-auto pt-5">
+		<div class="row">
+			<div class ="col-md-5">
+				<%= attachment_image_tag @user, :profile_image, size: '150x150', fallback: "no_image.jpg", :class => "d-block mx-auto border rounded-circle mb-5" %>
+				<div class="input-group mx-auto">
+					<label class="input-group-btn mx-auto">
+						<span class="btn btn-block">
+							<%= f.attachment_field :profile_image%>
+						</span>
+					</label>
+				</div>
+			</div>
+			<div class ="col-md-7">
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">ユーザー名</span>
+					</div>
+					<%= f.text_field :name, :class => "form-control" %>
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">&emsp;紹介文&emsp;</span>
+					</div>
+					<%= f.text_area :introduction, :class => "form-control", :size =>"60x5" %>
+				</div>
 
 
-	    <%= f.submit "更新する", :class => "d-block btn btn-primary mx-auto" %>
-    </div>
+				<%= f.submit "更新する", :class => "d-block btn btn-primary mx-auto" %>
+			</div>
 
-</div>
-</div>
+		</div>
+	</div>
 </div>
 <% end %>

@@ -1,34 +1,45 @@
 <div class="container">
 	<div class="row">
 		<div class="col"></div>
-			<div class="col-md-10">
-				<p class="display-4 text-center py-5">Notebooks</p>
-				<div class="card-columns">
-					<% @notebooks.each do |notebook| %>
-					<%= link_to notebook_path(notebook.id) do %>
-					<div class="card shadow mb-5">
-						<div class="card-body">
-							<h4 class="card-title text-center"><%= notebook.title%>
-								<small>
-									<% if user_signed_in? %>
-									<% if notebook.user.id == current_user.id %>
-
-									<%= link_to edit_notebook_path(notebook.id) do %>
-									<i class="fas fa-pencil-alt" style="color:grey;"></i>
-									<% end %>
-									<%= link_to notebook_path(notebook.id),method: :delete, data: { confirm: '削除しますか？' } do %>
-									<i class="fas fa-trash-alt" style="color:grey;"></i>
-									<% end %>
-									<% end %>
-									<% end %>
-								</small>
-							</h4>
-						</div>
-					</div>
+		<div class="col-md-10">
+			<% if @notebook.errors.any? %>
+			<div class="alert alert-danger">
+				<h4 class="text-center"><%= @notebook.errors.count %>件のエラーが発生しました</h4>
+				<ul>
+					<% @notebook.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
 					<% end %>
-					<% end %>
-				</div>
+				</ul>
 			</div>
+			<% end %>
+			<p class="display-4 text-center py-5">Notebooks</p>
+			<div class="card-columns">
+				<% @notebooks.each do |notebook| %>
+				<%= link_to notebook_path(notebook.id) do %>
+				<div class="card shadow mb-5">
+					<div class="card-body">
+						<h4 class="card-title text-center"><%= notebook.title%>
+							<small>
+								<% if user_signed_in? %>
+								<% if notebook.user.id == current_user.id %>
+
+								<%= link_to edit_notebook_path(notebook.id) do %>
+								<i class="fas fa-pencil-alt" style="color:grey;"></i>
+								<% end %>
+								<%= link_to notebook_path(notebook.id),method: :delete, data: { confirm: '削除しますか？' } do %>
+								<i class="fas fa-trash-alt" style="color:grey;"></i>
+								<% end %>
+								<% end %>
+								<% end %>
+							</small>
+						</h4>
+					</div>
+				</div>
+				<% end %>
+				<% end %>
+			</div>
+			<%= paginate @notebooks, theme: 'twitter-bootstrap-4' %>
+		</div>
 		<div class="col"></div>
 	</div>
 	<div class="row my-5">
@@ -37,12 +48,11 @@
 			<p class="text-center h2">Create&ensp;<i class="fas fa-book-open"></i></p>
 			<%= form_with model: @notebook, local: true do |f| %>
 			<div class="input-group my-3">
-			<%= f.text_area :title, :class => "form-control", placeholder:"ノートブック名を記入" %>
-			<%= f.submit "送信する", :class => "btn btn-primary input-group-append"%>
-			<% end %>
-		  </div>
+				<%= f.text_field :title, :class => "form-control", placeholder:"ノートブック名を記入" %>
+				<%= f.submit "送信する", :class => "btn btn-primary input-group-append"%>
+				<% end %>
+			</div>
 		</div>
 		<div class="col"></div>
 	</div>
-
 </div>

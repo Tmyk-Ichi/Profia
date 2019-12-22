@@ -7,7 +7,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Youtube URL</span>
 				</div>
-				<%= f.text_area :url, :class => "form-control", placeholder:"ノートの作成をしたいyoutubeのURLを貼り付けてください" %>
+				<%= f.text_field :url, :class => "form-control", placeholder:"ノートの作成をしたいyoutubeのURLを貼り付けてください", required: true%>
 			</div>
 			<%= f.submit "ノート作成へ", :class =>"btn btn-lg btn-info d-block mx-auto mt-1 mb-3"%>
 			<% end %>
