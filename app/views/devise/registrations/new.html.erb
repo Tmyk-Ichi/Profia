@@ -1,7 +1,7 @@
 <div class="container my-5">
-  <%= render "devise/shared/error_messages", resource: resource %>
   <div class="row justify-content-center">
     <div class="col-md-6">
+      <%= devise_error_messages %>
       <h2 class="text-center my-4">新規登録</h2>
 
 
@@ -11,7 +11,7 @@
       <div class="input-group-prepend">
       <span class="input-group-text" id="basic-addon1">&emsp;ユーザー名&emsp; </span>
       </div>
-      <%= f.text_field :name, autofocus: true, autocomplete: "name", :class => "form-control" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", :class => "form-control",required: true %>
     </div>
 
 
@@ -19,7 +19,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon1">メールアドレス</span>
       </div>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control",required: true %>
     </div>
 
     <div class="input-group">
@@ -27,18 +27,19 @@
         <span class="input-group-text" id="basic-addon1">&emsp;パスワード&emsp;
         </span>
       </div>
-      <%= f.password_field :password, autocomplete: "new-password", :class => "form-control" %>
+      <%= f.password_field :password, autocomplete: "new-password", :class => "form-control",required: true %>
     </div>
+    <small class="text-muted">パスワードは最低6文字以上必要です</small>
 
-<!--     <% if @minimum_password_length %>
+<!--     <%# if @minimum_password_length %>
             <em>(<%= @minimum_password_length %>文字以上必要)</em>
-    <% end %> -->
+    <%# end %> -->
 
     <div class="input-group my-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon1">パスワード確認</span>
       </div>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control",required: true %>
     </div>
 
     <div class="actions">
@@ -47,7 +48,7 @@
 <% end %>
     <%= link_to "ログインはこちら", new_user_session_path, :class =>"btn btn-primary d-block mx-auto" %>
 
-<!-- <%= render "devise/shared/links" %> -->
+<!-- <%#= render "devise/shared/links" %> -->
 
   </div>
   </div>

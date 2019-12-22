@@ -61,10 +61,14 @@
 											<strong class="text-center"><%=@note.impressionist_count %></strong>
 										</li>
 										<li class="nav-item">
+											<% if Notebook.where(user_id: current_user.id).present? %>
 											<%= form_with model: @notebook_note do |f| %>
 											<%= f.hidden_field :note_id, value: @note.id %>
 											<%= f.collection_select :notebook_id, Notebook.where(user_id: current_user.id), :id, :title, :prompt => "選択してください", :class =>" custom-select" %><br>
 											<%= f.submit "ノートブックに保存", :class => "btn btn-sm btn-info d-inline mt-3"%>
+											<% end %>
+											<% else %>
+											<%= link_to "ノートブックを作成してください", notebooks_path %>
 											<% end %>
 										</li>
 									</ul>

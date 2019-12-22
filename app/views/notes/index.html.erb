@@ -24,6 +24,8 @@
 							</li>
 						</ul>
 					</div>
+					<div class="card-footer"><p>閲覧数<%= rank.impressionist_count %><P>
+						<p>お気に入り数：<%= rank.favorites.count %></p></div>
 				</div>
 				<% end %>
 				<% end %>
@@ -55,12 +57,13 @@
 			<% end %>
 			<% end %>
 		</div>
+		<%= paginate @notes, theme: 'twitter-bootstrap-4' %>
 	</div>
 		<div class="col-md-3">
-			<% tag_cloud(@tags, ["tag-x-small", "tag-small", "tag-medium", "tag-large", "tag-x-large"]) do |tag, css_class| %>
+			<p class="h5 text-center py-5">タグ一覧</p>
+			<% tag_cloud(@tags, ["css1", "css2", "css3", "css4"]) do |tag, css_class| %>
 			<%= link_to tag, tags_notes_path(tag_name: tag.name), :class=> css_class%>
 			<% end %>
 		</div>
 	</div>
-	<%= paginate @notes, theme: 'twitter-bootstrap-4' %>
 </div>

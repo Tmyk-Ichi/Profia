@@ -67,6 +67,7 @@
 							<% end %>
 							<% end %>
 						</div>
+						<%= paginate @notes, class: "paginate", theme: 'twitter-bootstrap-4' %>
 					</div>
 				</div>
 			</div>
@@ -112,7 +113,7 @@
 					<!-- フォローを表示 -->
 					<div class="tab-pane" id="follow">
 						<div class="card-deck">
-							<% @user.all_following.each do |follow| %>
+							<% @follows.each do |follow| %>
 							<div class="col-md-6">
 								<%= link_to user_path(follow) do %>
 								<div class="media p-2 border mb-3">
@@ -131,7 +132,7 @@
 					<!-- フォロワーを表示 -->
 					<div class="tab-pane" id="follower">
 						<div class="card-deck">
-							<% @user.followers.each do |follower| %>
+							<% @followers.each do |follower| %>
 							<div class="col-md-6">
 								<%= link_to user_path(follower) do %>
 								<div class="media p-2 border mb-3">
@@ -152,20 +153,21 @@
 						<div class="row justify-content-center">
 							<div class="col-md-10">
 								<div class ="card-columns">
-									<% @user.favorites.each do |f|  %>
-									<%= link_to note_path(f.note.id) do %>
+									<% @favorite_notes.each do |note|  %>
+									<%= link_to note_path(note.id) do %>
 									<div class="card shadow mb-5 text-center">
-										<img src="https://i.ytimg.com/vi/<%= f.note.url%>/hqdefault.jpg", class="card-img-top">
+										<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
 										<div class="card-body">
-											<h4 class="card-title"><%= f.note.title%></h4>
+											<h4 class="card-title"><%= note.title%></h4>
 											<ul class="list-group list-group-flush">
-												<li class="list-group-item"><p class="text-truncate"><%= f.note.introduction %></p></li>
+												<li class="list-group-item"><p class="text-truncate"><%= note.introduction %></p></li>
 											</ul>
 										</div>
 									</div>
 									<% end %>
 									<% end %>
 								</div>
+								<%= paginate @favorite_notes, class: "paginate", theme: 'twitter-bootstrap-4' %>
 							</div>
 						</div>
 					</div>

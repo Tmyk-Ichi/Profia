@@ -3,14 +3,17 @@
 
 		<div class="col-md-8">
 			<p class ="h2 text-center my-4">編集画面</p>
-			<%= form_with model: @note, url: create_notes_path, local: true do |f| %>
-
 			<% if @note.errors.any? %>
-			<%= @note.errors.count %>件のエラーが発生しました
-			<% @note.errors.full_messages.each do |message| %>
-			<%= message %>
+			<div class="alert alert-danger">
+				<h2 class="text-center"><%= @note.errors.count %>件のエラーが発生しました</h2>
+				<ul>
+					<% @note.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
 			<% end %>
-			<% end %>
+			<%= form_with model: @note, local: true do |f| %>
 
 
 			<div class="row justify-content-center my-3">

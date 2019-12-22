@@ -14,4 +14,8 @@ class User < ApplicationRecord
   #フォローフォロワー機能
   acts_as_follower
   acts_as_followable
+
+  #バリデーション
+  validates :name, presence: true, length:{minimum: 2, maximum: 20}, uniqueness: true
+  validates :introduction, presence: true, length:{maximum: 50}
 end

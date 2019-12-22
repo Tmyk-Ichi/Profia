@@ -1,7 +1,25 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, {only: [:edit,:update]}
+  before_action :ensure_correct_user, {only: [:edit,:update]}
+
+  def ensure_correct_user
+    if current_user.id != params[:id].to_i
+      redirect_to user_path(current_user)
+    end
+  end
+
   def show
   	@user = User.find(params[:id])
-    @notes = Note.where(user_id: @user.id)
+    #フォローを定義
+    @follows = @user.all_following
+    #フォロワーを定義
+    @followers = @user.followers
+    #ユーザーのお気に入りを取得
+    #ユーザーに紐づいているfavoriteのノートIDを配列化
+    favorite_ids = @user.favorites.pluck(:note_id)
+    @favorite_notes = Note.where(id: favorite_ids).page(params[:page]).reverse_order
+    #ユーザーの投稿を取得
+    @notes = Note.where(user_id: @user.id).page(params[:page]).reverse_order
   end
 
   def edit
@@ -10,8 +28,11 @@ class UsersController < ApplicationController
 
   def update
   	@user = User.find(params[:id])
-  	@user.update(user_params)
+  	if @user.update(user_params)
   	redirect_to user_path(@user.id)
+    else
+    render 'users/edit'
+    end
   end
 
   def follow
