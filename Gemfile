@@ -89,3 +89,7 @@ gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 
 gem 'rails-i18n'
+
+group :production do
+  gem 'mysql2'
+end
