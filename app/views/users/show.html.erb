@@ -1,0 +1,180 @@
+<div class="container mt-5">
+	<h4 class="display-4 text-center pt-5 pb-3">User show</h4>
+	<div class ="row">
+		<%= attachment_image_tag @user, :profile_image, size: '150x150', fallback: "no_image.jpg", :class => "d-block mx-auto border rounded-circle mb-2" %>
+	</div>
+
+	<div class="text-center">
+		<div class="row justify-content-center">
+			<h3><%= @user.name %></h3>
+			<% if user_signed_in? %>
+			<% if @user.id == current_user.id %>
+			<%= link_to edit_user_path(current_user.id) do%>
+			<i class="fas fa-pencil-alt fa-la" aria-hidden="true" style="padding:50%; color:grey;"></i>
+			<% end %>
+			<% end %>
+			<% end %>
+		</div>
+		<p class="text-center p-4"><%= @user.introduction %></p>
+		<%= render 'users/follow', user: @user %>
+	</div>
+
+	<div class="card my-5">
+		<div class="card-header text-white">
+			<ul class="nav justify-content-center nav-justified mt-3">
+				<li class="nav-item">
+					<a class="nav-link active underline" href="#notes" data-toggle="tab"><p>NOTES</p></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link underline" href="#info" data-toggle="tab"><p>INFO</p></a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="notes">
+				<div class="row justify-content-center my-5">
+					<div class="col-md-10">
+						<p class="display-4 text-center py-5">My Notes</p>
+						<div class="card-columns">
+							<% @notes.each do |note| %>
+							<%= link_to note_path(note.id) do %>
+							<div class="card shadow mb-5 text-center">
+								<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
+								<div class="card-body">
+									<h4 class="card-title text-truncate"><%= note.title%></h4>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item"><p class="text-truncate"><%= note.introduction %></p></li>
+
+										<li class="list-group-item">
+											<%= attachment_image_tag note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
+											<%= note.user.name %>
+										</li>
+
+
+										<li class="list-group-item"><small><%= note.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small></li>
+										<% if user_signed_in? %>
+										<% if note.user.id == current_user.id %>
+										<li class="list-group-item">
+											<%= link_to "編集する", edit_note_path(note.id), :class=>"btn btn-sm  btn-success" %>
+											<%= link_to "削除する", note_path(note.id),method: :delete, :class=>"btn btn-sm btn-danger",data: { confirm: '削除しますか？' } %>
+										</li>
+										<% end %>
+										<% end %>
+									</ul>
+								</div>
+							</div>
+							<% end %>
+							<% end %>
+						</div>
+						<%= paginate @notes, class: "paginate", theme: 'twitter-bootstrap-4' %>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane p-3" id="info">
+				<div class="row justify-content-center my-5">
+					<ul class="nav">
+						<li class="nav-item">
+							<a class="nav-link active underline" href="#status" data-toggle="tab">ステータス</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link underline" href="#follow" data-toggle="tab">フォロー</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link underline" href="#follower" data-toggle="tab">フォロワー</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link underline" href="#favorites" data-toggle="tab">いいね一覧</a>
+						</li>
+					</ul>
+				</div>
+				<div class="tab-content">
+					<div class="tab-pane active show fade" id="status">
+						<div class="row justify-content-around">
+							<div class="col-md-5">
+								<div class="card text-center p-3">
+									<div class="card-body">
+										<p class="card-title">投稿数</p>
+										<p class="card-text"><%= @user.notes.count %></p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="card text-center p-3">
+									<div class="card-body">
+										<p class="card-title">いいね数</p>
+										<p class="card-text"><%= @user.favorites.count%></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- フォローを表示 -->
+					<div class="tab-pane" id="follow">
+						<div class="card-deck">
+							<% @follows.each do |follow| %>
+							<div class="col-md-6">
+								<%= link_to user_path(follow) do %>
+								<div class="media p-2 border mb-3">
+									<%= attachment_image_tag follow, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "mr-3"%>
+									<div class="media-body">
+										<h5><%= follow.name %></h5>
+										<p><%= follow.introduction %></p>
+									</div>
+								</div>
+								<% end %>
+							</div>
+							<% end %>
+						</div>
+					</div>
+
+					<!-- フォロワーを表示 -->
+					<div class="tab-pane" id="follower">
+						<div class="card-deck">
+							<% @followers.each do |follower| %>
+							<div class="col-md-6">
+								<%= link_to user_path(follower) do %>
+								<div class="media p-2 border mb-3">
+									<%= attachment_image_tag follower, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "mr-3"%>
+									<div class="media-body">
+										<h5><%= follower.name %></h5>
+										<p><%= follower.introduction %></p>
+									</div>
+								</div>
+								<% end %>
+							</div>
+							<% end %>
+						</div>
+					</div>
+
+					<!-- お気に入りを表示 -->
+					<div class="tab-pane" id="favorites">
+						<div class="row justify-content-center">
+							<div class="col-md-10">
+								<div class ="card-columns">
+									<% @favorite_notes.each do |note|  %>
+									<%= link_to note_path(note.id) do %>
+									<div class="card shadow mb-5 text-center">
+										<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
+										<div class="card-body">
+											<h4 class="card-title"><%= note.title%></h4>
+											<ul class="list-group list-group-flush">
+												<li class="list-group-item"><p class="text-truncate"><%= note.introduction %></p></li>
+											</ul>
+										</div>
+									</div>
+									<% end %>
+									<% end %>
+								</div>
+								<%= paginate @favorite_notes, class: "paginate", theme: 'twitter-bootstrap-4' %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>

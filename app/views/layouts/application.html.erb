@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Pofia</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Pofia</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+
+  <!-- header あとで部分テンプレートに移動 -->
+<%= render 'layouts/header' %>
+
+
+
+<%= yield %>
+
+
+
+
+
+
+<!-- footer あとで部分テンプレートに移動 -->
+<footer class="py-4 mt-5 text-light bg-primary" style="position:absolute;bottom:0;width:100%;">
+  <div class="container text-center">
+    <p><small>&copy;2019.Pofia</small></p>
+  </div>
+</footer>
+
+
+
+
+<!-- ここまで -->
+</body>
 </html>

@@ -1,0 +1,25 @@
+<div class="container">
+	<div class="row mt-5">
+		<div class="col"></div>
+		<div class ="col-md-6 mt-3">
+			<% if @notebook.errors.any? %>
+			<div class="alert alert-danger">
+				<h4 class="text-center"><%= @notebook.errors.count %>件のエラーが発生しました</h4>
+				<ul>
+					<% @notebook.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+			<p class="display-4 mt-5 text-center">ReNAME&ensp;<i class="fas fa-book-open"></i></p>
+			<%= form_with model: @notebook, local: true do |f| %>
+			<div class="input-group my-3">
+				<%= f.text_field :title, :class => "form-control", placeholder:"ノートブック名を記入" %>
+				<%= f.submit "保存する", :class => "btn btn-primary"%>
+				<% end %>
+			</div>
+		</div>
+		<div class="col"></div>
+	</div>
+</div>

@@ -1,0 +1,52 @@
+<div class = "container">
+	<div class="row justify-content-center">
+
+		<div class="col-md-8">
+			<p class ="h2 text-center my-4">投稿画面</p>
+			<% if @note.errors.any? %>
+			<div class="alert alert-danger">
+				<h2 class="text-center"><%= @note.errors.count %>件のエラーが発生しました</h2>
+				<ul>
+					<% @note.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+
+
+			<%= form_with model: @note, url: create_notes_path, local: true do |f| %>
+
+
+			<div class="row justify-content-center my-3">
+				<iframe width="700" height="394" src="https://www.youtube.com/embed/<%= @video_id%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
+
+			<%= f.hidden_field :url, :value => @video_id%>
+
+			<div class ="form-group my-3">
+				<%= f.label :title, "タイトル", :class =>"h5" %>
+				<%= f.text_field :title, :class => "form-control", placeholder:"ノートのタイトルを記入" %>
+			</div>
+
+			<div class ="form-group">
+				<%= f.label :tag_list, "タグ", :class => "h5 d-block" %>
+				<%= f.text_field :tag_list, value: @note.tag_list.join(','), :class => "form-control", placeholder:"タグ名を記入", "data-role" => "tagsinput"%>
+				<small class="text-muted">タグ名の最後に『,』（半角カンマ）をつけてください</small>
+			</div>
+
+			<div class ="form-group">
+				<%= f.label :introduction, "概要", :class =>"h5" %>
+				<%= f.text_area :introduction, :class =>"form-control", :size=>"60x2", placeholder:"ノートの概要を記入" %>
+			</div>
+
+			<div class ="form-group">
+				<%= f.label :body, "本文", :class =>"h5" %>
+				<%= f.text_area :body, :class =>"form-control", :size=>"60x10", placeholder:"ノートの本文を記入" %>
+			</div>
+
+			<%= f.submit "保存する", :class => "btn btn-primary d-block text-center mx-auto mb-5"%>
+			<% end %>
+		</div>
+	</div>
+</div>

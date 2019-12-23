@@ -1,0 +1,105 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require bootstrap-tagsinput
+ *= require_self
+ */
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+// ここからbootswatch
+@import "minty/variables";
+@import "bootstrap";
+@import "minty/bootswatch";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "*";
+
+body{
+	min-height:100vh;
+	position: relative;
+	padding-bottom:88px;
+}
+
+.card{
+	color: gray;
+	a{
+		color: black;
+		text-decoration: none;
+	}
+
+	.btn{
+		color:white;
+	}
+}
+
+// .card:hover {
+//   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+//   transform: translateY(-0.1875em);
+// }
+
+
+// ホバー時に線を伸ばす
+.underline {
+  display: inline-block;
+  padding-bottom: 4px;
+  position: relative;
+}
+
+// .underline::after {
+//   background-color:black;
+//   bottom: 0;
+//   content: '';
+//   display: block;
+//   //heightが線の太さに対応
+//   height: 1px;
+//   left: 0;
+//   visibility: hidden;
+//   position: absolute;
+//   transition: .5s all;
+//   //デフォルト状態では非表示
+//   width: 0;
+// }
+
+// .underline::after:hover {
+//   width: 100%;
+// }
+.underline::after{
+	position:absolute;
+	bottom:0;
+	left:0;
+	content:'';
+	width:100%;
+	height:3px;
+	background: black;
+	transform:scaleX(0);
+	//transform-origin:left top;
+	transition:transform .3s ease;
+
+}
+.underline:hover::after{
+	transform:scaleX(1);
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.jumbotron {
+  background-image: url("top.jpg");
+  background-size: cover;
+  background-position: center;
+  height:300px;
+}
+
+.bg-mask {
+  height: 100%;
+  background: rgba(255,255,255,0.5);
+}

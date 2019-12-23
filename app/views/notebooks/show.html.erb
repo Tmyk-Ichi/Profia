@@ -1,0 +1,39 @@
+<div class="container my-5">
+<div class="row justify-content-center my-5">
+		<div class="col-md-10">
+			<p class="display-4 text-center py-5">
+				<i class="fas fa-book-open"></i><%= @notebook.title %>
+			</p>
+			<div class="card-columns">
+				<% @notebook.notebook_notes.each do |f| %>
+				<%= link_to note_path(f.note.id) do %>
+				<div class="card shadow mb-5 text-center">
+					<img src="https://i.ytimg.com/vi/<%= f.note.url%>/hqdefault.jpg", class="card-img-top">
+					<div class="card-body">
+						<h4 class="card-title"><%= f.note.title%></h4>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item"><p class="text-truncate"><%= f.note.introduction %></p></li>
+
+							<li class="list-group-item">
+								<%= attachment_image_tag f.note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
+								<%= f.note.user.name %>
+							</li>
+
+
+							<li class="list-group-item"><small><%= f.note.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
+							</li>
+
+							<li class="list-group-item">
+								<%= link_to notebook_note_path(f.id), method: :delete do %>
+                            <p><i class="fas fa-minus-circle fa-2x" style="color:red;"></i></p>
+                            <% end %>
+							</li>
+						</ul>
+				    </div>
+				</div>
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+</div>
+</div>
