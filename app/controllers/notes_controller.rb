@@ -42,7 +42,7 @@ def new
 
   def index
     #1ページに決められた分だけ、新しい順に取得
-    @notes = Note.page(params[:page]).reverse_order
+    @notes = Note.all.reverse_order.take(6)
     @most_viewed = Note.order('impressions_count DESC').take(6)
 
     #タグ一覧の読み込み
@@ -88,6 +88,10 @@ def new
   def youtube
     #空のインスタンスを渡す
     @note = Note.new
+  end
+
+  def new_list
+    @notes = Note.page(params[:page]).reverse_order
   end
 
   private

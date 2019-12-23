@@ -1,5 +1,11 @@
 <div class="container my-5">
-	<!--  -->
+	<div class="jumbotron">
+		<div class="bg-mask text-center">
+		<h1 class="display-4 text-center">Pofiaとは</h1>
+		<p class="text-center" style="color:black;">youtubeの投稿を見て、学んだこと、思ったことを動画と共に投稿できるサイトです</p>
+		<%= link_to "始める",new_user_registration_path, :class=>"btn btn-outline-danger text-center" %>
+	    </div>
+	</div>
 	<div class="row mt-5">
 		<div class="col-md-9">
 			<p class="display-4 text-center py-5">Popluar Notes</p>
@@ -24,8 +30,10 @@
 							</li>
 						</ul>
 					</div>
-					<div class="card-footer"><p>閲覧数<%= rank.impressionist_count %><P>
-						<p>お気に入り数：<%= rank.favorites.count %></p></div>
+					<div class="card-footer">
+						<p class="d-inline">閲覧数:<%= rank.impressionist_count %></p>
+						<p class="d-inline">お気に入り数：<%= rank.favorites.count %></p>
+					</div>
 				</div>
 				<% end %>
 				<% end %>
@@ -57,12 +65,12 @@
 			<% end %>
 			<% end %>
 		</div>
-		<%= paginate @notes, theme: 'twitter-bootstrap-4' %>
+		<%= link_to "新着一覧へ", new_list_notes_path, :class => "btn btn-outline-primary float-right" %>
 	</div>
-		<div class="col-md-3">
+		<div class="col-md-3 text-white border rounded">
 			<p class="h5 text-center py-5">タグ一覧</p>
 			<% tag_cloud(@tags, ["css1", "css2", "css3", "css4"]) do |tag, css_class| %>
-			<%= link_to tag, tags_notes_path(tag_name: tag.name), :class=> css_class%>
+			<span class="badge badge-primary"><%= link_to tag, tags_notes_path(tag_name: tag.name), :class=>"text-white css_class"%></span>
 			<% end %>
 		</div>
 	</div>

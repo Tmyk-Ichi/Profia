@@ -4,10 +4,8 @@
     <div class="navbar-nav">
     <ul class="nav">
       <% if user_signed_in? %>
-      <li class="nav-item mr-1">
-        <%= link_to root_path do %>
-        <i class="fa fa-home fa-2x nav-link"></i>
-        <% end %>
+      <li class="nav-item nav-link mr-1">
+        <%= link_to "トップページ",root_path, :class=>"nav-link" %>
       </li>
       <li class="nav-item">
         <%= link_to mypage_path(current_user) do%>
