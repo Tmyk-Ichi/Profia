@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get "tags"
     get "search"
     get "youtube"
+    get "new_list"
     post "new"
     post "create", as: :create
     end
