@@ -3,7 +3,9 @@
 		<div class="bg-mask text-center">
 		<h1 class="display-4 text-center">Pofiaとは</h1>
 		<p class="text-center" style="color:black;">youtubeの投稿を見て、学んだこと、思ったことを動画と共に投稿できるサイトです</p>
+		<% unless user_signed_in? %>
 		<%= link_to "始める",new_user_registration_path, :class=>"btn btn-outline-danger text-center" %>
+		<% end %>
 	    </div>
 	</div>
 	<div class="row mt-5">
