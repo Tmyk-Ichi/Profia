@@ -1,61 +1,40 @@
-<nav class="navbar navbar-expand-md navbar-light bg-primary mb-5 p-3">
+<nav class="navbar navbar-expand-md navbar-light bg-warning mb-5 border-bottom">
   <div class="container">
-    <h3 class="nav-brand">Pofia</h3>
-    <div class="navbar-nav">
-    <ul class="nav">
+    <h3 class="nav-brand"><strong>Pofia</strong></h3>
+    <ul class="navbar-nav">
       <% if user_signed_in? %>
-      <li class="nav-item nav-link mr-1">
-        <%= link_to "トップページ",root_path, :class=>"nav-link" %>
+      <li class="nav-link">
+        <%= link_to "Top Page",root_path, :class=>"nav-link" %>
       </li>
-      <li class="nav-item">
-        <%= link_to mypage_path(current_user) do%>
-        <i class="fas fa-portrait fa-2x nav-link text-center"></i>
-        <%end%>
+      <li class="nav-link">
+        <%= link_to "My Page",user_path(current_user), :class=>"nav-link"%>
       </li>
-      <li class="nav-item">
-        <%= link_to youtube_notes_path do %>
-        <i class="fas fa-sticky-note fa-2x nav-link"></i>
-        <% end %>
+      <li class="nav-link">
+        <%= link_to "New Post",youtube_notes_path, :class=>"nav-link" %>
       </li>
-      <li class="nav-item">
-        <%= link_to notebooks_path do %>
-        <i class="fas fa-book-open fa-2x nav-link"></i>
-        <% end %>
+      <li class="nav-link">
+        <%= link_to "Notebooks",notebooks_path, :class=>"nav-link" %>
       </li>
-      <li class="nav-item">
-        <%= link_to destroy_user_session_path, method: :delete do%>
-        <i class="fas fa-sign-out-alt fa-2x nav-link"></i>
-        <% end %>
+      <li class="nav-link">
+        <%= link_to "Logout",destroy_user_session_path, method: :delete, :class=>"nav-link"%>
       </li>
-    <%= search_form_for @search, url: search_notes_path do |f| %>
-      <div class="input-group">
-        <div class ="input-group-prepend">
-          <%= f.search_field :title_or_body_cont, placeholder: "検索するノートを入力...", :class => "form-control", :required => true%>
-          <%= f.submit "検索", :class => "btn btn-success my-2 my-sm-0" %>
-        </div>
-      </div>
-    <% end %>
       <% else %>
-      <li class="nav-item">
-        <%= link_to root_path do %>
-        <i class="fa fa-home fa-2x nav-link"></i>
-        <% end %>
+      <li class="nav-link">
+        <%= link_to "Top Page", root_path, :class=>"nav-link" %>
       </li>
-      <li class="nav-item">
-        <i class="fas fa-link fa-2x nav-link"></i>
+      <li class="nav-link">
+        <%= link_to "Sign up", new_user_registration_path, :class=>"nav-link" %>
       </li>
-      <li class="nav-item">
-        <%= link_to new_user_registration_path do %>
-        <i class="fas fa-user-plus fa-2x nav-link"></i>
-        <% end %>
-      </li>
-      <li class="nav-item">
-        <%= link_to user_session_path do %>
-        <i class="fas fa-sign-in-alt fa-2x nav-link"></i>
-        <%end%>
+      <li class="nav-link">
+        <%= link_to "Log in", user_session_path, :class=>"nav-link" %>
       </li>
       <% end %>
+      <div class="form-inline">
+        <%= search_form_for @search, url: search_notes_path do |f| %>
+        <%= f.search_field :title_or_body_cont, placeholder: "検索するノートを入力...", :class => "form-control", :required => true%>
+        <%= f.submit "検索", :class => "btn btn-outline-primary" %>
+        <% end %>
+      </div>
     </ul>
-  </div>
   </div>
 </nav>

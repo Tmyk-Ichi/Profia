@@ -1,16 +1,16 @@
 <% if @note.favorited_by?(current_user) %>
  <li class="nav-item mr-3">
   <%= link_to note_favorites_path(note_id: @note.id), method: :delete, remote: true do%>
-  <i class="fas fa-heart fa-2x" style="color:red;"></i>
+  <i class="fas fa-bookmark fa-2x" style="color:orange;"></i>
   <%end%>
-  <p><%= @note.favorites.count %>いいね</p>
+  <p><%= @note.favorites.count %>お気に入り</p>
  </li>
 <% else %>
  <li class="nav-item mr-3">
   <%= link_to note_favorites_path(note_id: @note.id), method: :post, remote: true do%>
-  <i class="fas fa-heart fa-2x" style="color:grey;"></i>
+  <i class="fas fa-bookmark fa-2x" style="color:grey;"></i>
   <% end %>
-  <p><%= @note.favorites.count %>いいね</p>
+  <p><%= @note.favorites.count %>お気に入り</p>
  </li>
 <% end %>
 
