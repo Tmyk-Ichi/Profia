@@ -46,11 +46,6 @@
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item"><p class="text-truncate"><%= note.introduction %></p></li>
 
-										<li class="list-group-item">
-											<%= attachment_image_tag note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
-											<%= note.user.name %>
-										</li>
-
 
 										<li class="list-group-item"><small><%= note.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small></li>
 										<% if user_signed_in? %>
@@ -84,7 +79,7 @@
 							<a class="nav-link underline" href="#follower" data-toggle="tab">フォロワー</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link underline" href="#favorites" data-toggle="tab">いいね一覧</a>
+							<a class="nav-link underline" href="#favorites" data-toggle="tab">お気に入り一覧</a>
 						</li>
 					</ul>
 				</div>
@@ -102,7 +97,7 @@
 							<div class="col-md-5">
 								<div class="card text-center p-3">
 									<div class="card-body">
-										<p class="card-title">いいね数</p>
+										<p class="card-title">お気に入りした数</p>
 										<p class="card-text"><%= @user.favorites.count%></p>
 									</div>
 								</div>

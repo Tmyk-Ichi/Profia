@@ -18,13 +18,7 @@
 		<div class="row">
 			<div class ="col-md-5">
 				<%= attachment_image_tag @user, :profile_image, size: '150x150', fallback: "no_image.jpg", :class => "d-block mx-auto border rounded-circle mb-5" %>
-				<div class="input-group mx-auto">
-					<label class="input-group-btn mx-auto">
-						<span class="btn btn-block">
-							<%= f.attachment_field :profile_image%>
-						</span>
-					</label>
-				</div>
+				<%= f.attachment_field :profile_image%>
 			</div>
 			<div class ="col-md-7">
 

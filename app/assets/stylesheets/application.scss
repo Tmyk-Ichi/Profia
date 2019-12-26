@@ -93,7 +93,7 @@ body{
 }
 
 .jumbotron {
-  background-image: url("top.jpg");
+  background-image: image-url("top.jpg");
   background-size: cover;
   background-position: center;
   height:300px;
@@ -102,4 +102,8 @@ body{
 .bg-mask {
   height: 100%;
   background: rgba(255,255,255,0.5);
+}
+
+body{
+	background-color: #F2F2F2;
 }

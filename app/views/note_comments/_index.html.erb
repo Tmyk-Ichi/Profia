@@ -16,7 +16,7 @@
 					<% if note_comment.user.id == current_user.id %>
 					<!--コメント削除の際に、投稿のidとコメントのidを渡す必要がある -->
 					<!-- remote:trueでjsファイルを呼び出す-->
-					<%= link_to "削除する",note_note_comment_path(note_id: @note, id: note_comment.id), method: :delete, remote:true, :class => "btn btn-sm btn-outline-danger m-1 float-md-right"%>
+					<%= link_to "削除する",note_note_comment_path(note_id: @note, id: note_comment.id), method: :delete, remote:true, :class => "btn btn-sm btn-danger m-1 float-md-right"%>
 					<% end %>
 					<% end %>
 				</div>
