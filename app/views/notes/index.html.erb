@@ -1,40 +1,29 @@
 <div class="container my-5">
 	<div class="jumbotron">
 		<div class="bg-mask text-center">
-		<h1 class="display-4 text-center">Pofiaとは</h1>
-		<p class="text-center" style="color:black;">youtubeの投稿を見て、学んだこと、思ったことを動画と共に投稿できるサイトです</p>
-		<% unless user_signed_in? %>
-		<%= link_to "始める",new_user_registration_path, :class=>"btn btn-outline-danger text-center" %>
-		<% end %>
-	    </div>
+			<h1 class="display-4 text-center font-italic">Pofiaとは</h1>
+			<p class="h5 font-italic pt-3">youtubeの投稿を見て、学んだこと、思ったことを動画と共に投稿できるサイトです</p>
+			<% unless user_signed_in? %>
+			<%= link_to "始める",new_user_registration_path, :class=>"btn btn-outline-danger text-center" %>
+			<% end %>
+		</div>
 	</div>
 	<div class="row mt-5">
 		<div class="col-md-9">
-			<p class="display-4 text-center py-5">Popluar Notes</p>
+			<p class="display-4 text-center py-5 font-italic font-weight-bold">Popluar Notes</p>
 			<div class="card-columns">
 				<% @most_viewed.each do |rank| %>
 				<%= link_to note_path(rank.id) do %>
 				<div class="card shadow mb-5 text-center">
 					<img src="https://i.ytimg.com/vi/<%= rank.url%>/hqdefault.jpg", class="card-img-top">
 					<div class="card-body">
-						<h4 class="card-title text-truncate"><%= rank.title%></h4>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item"><p class="text-truncate"><%= rank.introduction %></p></li>
-
-							<li class="list-group-item">
-								<%= attachment_image_tag rank.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
-								<%= rank.user.name %>
-							</li>
-
-
-							<li class="list-group-item">
-								<small><%= rank.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
-							</li>
-						</ul>
+						<h4 class="card-title text-truncate font-weight-bold"><%= rank.title%></h4>
+						<p class="text-truncate"><%= rank.introduction %></p></li>
+						<small><%= rank.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
 					</div>
-					<div class="card-footer">
-						<p class="d-inline">閲覧数:<%= rank.impressionist_count %></p>
-						<p class="d-inline">お気に入り数：<%= rank.favorites.count %></p>
+					<div class="card-footer bg-transparent">
+						<p class="d-inline"><i class="fas fa-eye px-2"></i><%= rank.impressionist_count %></p>
+						<p class="d-inline"><i class="fas fa-bookmark px-2"></i><%= rank.favorites.count %></p>
 					</div>
 				</div>
 				<% end %>
@@ -42,38 +31,33 @@
 			</div>
 
 
-		<!--新着順 -->
-		<p class="display-4 text-center py-5">New Notes</p>
-		<div class="card-columns">
-			<% @notes.each do |note| %>
-			<%= link_to note_path(note.id) do %>
-			<div class="card shadow mb-5 text-center">
-				<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
-				<div class="card-body">
-					<h4 class="card-title text-truncate"><%= note.title%></h4>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><p class="text-truncate"><%= note.introduction %></p></li>
-
-						<li class="list-group-item">
-							<%= attachment_image_tag note.user, :profile_image, size: '50x50', fallback: "no_image.jpg", :class => "border rounded-circle" %>
-							<%= note.user.name %>
-						</li>
-						<li class="list-group-item">
-							<small><%= note.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
-						</li>
-					</ul>
+			<!--新着順 -->
+			<p class="display-4 text-center py-5 font-italic font-weight-bold">New Notes</p>
+			<div class="card-columns">
+				<% @notes.each do |note| %>
+				<%= link_to note_path(note.id) do %>
+				<div class="card shadow mb-5 text-center">
+					<img src="https://i.ytimg.com/vi/<%= note.url%>/hqdefault.jpg", class="card-img-top">
+					<div class="card-body">
+						<h4 class="card-title text-truncate"><%= note.title%></h4>
+						<p class="text-truncate"><%= note.introduction %></p>
+						<small><%= note.updated_at.strftime("%Y年%m月%d日 %H時%M分") %></small>
+					</div>
 				</div>
+				<% end %>
+				<% end %>
 			</div>
-			<% end %>
-			<% end %>
+			<%= link_to "新着一覧へ", new_list_notes_path, :class => "btn btn-outline-primary float-right" %>
 		</div>
-		<%= link_to "新着一覧へ", new_list_notes_path, :class => "btn btn-outline-primary float-right" %>
-	</div>
-		<div class="col-md-3 text-white border rounded">
-			<p class="h5 text-center py-5">タグ一覧</p>
+		<div class="col-md-3 text-white">
+			<div class ="card">
+				<div class="card-body">
+			<p class="h5 text-center card-title py-5">Tags</p>
 			<% tag_cloud(@tags, ["css1", "css2", "css3", "css4"]) do |tag, css_class| %>
 			<span class="badge badge-primary"><%= link_to tag, tags_notes_path(tag_name: tag.name), :class=>"text-white css_class"%></span>
 			<% end %>
+		</div>
+		    </div>
 		</div>
 	</div>
 </div>
