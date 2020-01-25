@@ -18,3 +18,15 @@
 //= require bootstrap-tagsinput.min
 //= require cocoon
 //= require_tree .
+
+
+$(function() {
+ 
+  $('#top-btn a').click(function(){
+    $('body, html').animate({
+      'scrollTop':0
+    }, 800);
+      return false;
+  });
+ 
+});

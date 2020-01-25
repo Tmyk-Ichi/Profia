@@ -48,16 +48,23 @@
 				<% end %>
 			</div>
 			<%= link_to "新着一覧へ", new_list_notes_path, :class => "btn btn-outline-primary float-right" %>
+
+			<span id="top-btn">
+				<a href="#">
+					<img src="assets/arrow.png" alt="">
+				</a>
+			</span>
+
 		</div>
 		<div class="col-md-3 text-white">
 			<div class ="card">
 				<div class="card-body">
-			<p class="h5 text-center card-title py-5">Tags</p>
-			<% tag_cloud(@tags, ["css1", "css2", "css3", "css4"]) do |tag, css_class| %>
-			<span class="badge badge-primary"><%= link_to tag, tags_notes_path(tag_name: tag.name), :class=>"text-white css_class"%></span>
-			<% end %>
-		</div>
-		    </div>
+					<p class="h5 text-center card-title py-5">Tags</p>
+					<% tag_cloud(@tags, ["css1", "css2", "css3", "css4"]) do |tag, css_class| %>
+					<span class="badge badge-primary"><%= link_to tag, tags_notes_path(tag_name: tag.name), :class=>"text-white css_class"%></span>
+					<% end %>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
