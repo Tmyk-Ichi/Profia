@@ -68,13 +68,6 @@ body{
   justify-content: center;
 }
 
-.jumbotron {
-  background-image: image-url("top.jpg");
-  background-size: cover;
-  background-position: center;
-  height:300px;
-}
-
 .bg-mask {
   height: 100%;
   background: rgba(255,255,255,0.5);
@@ -94,4 +87,24 @@ body{
 
 #top-btn img {
   width: 50px;
+}
+
+.image1 {
+background-image: url(image1.jpg);
+}
+.image2 {
+background-image: url(image2.jpg);
+}
+.image3 {
+background-image: url(image3.jpg);
+}
+.image4 {
+background-image: url(image4.jpg);
+}
+.image5 {
+background-image: url(image5.jpg);
+}
+
+#container{
+  height: 350px;
 }
