@@ -40,12 +40,6 @@ body{
 	}
 }
 
-// .card:hover {
-//   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
-//   transform: translateY(-0.1875em);
-// }
-
-
 // ホバー時に線を伸ばす
 .underline {
   display: inline-block;
@@ -53,24 +47,6 @@ body{
   position: relative;
 }
 
-// .underline::after {
-//   background-color:black;
-//   bottom: 0;
-//   content: '';
-//   display: block;
-//   //heightが線の太さに対応
-//   height: 1px;
-//   left: 0;
-//   visibility: hidden;
-//   position: absolute;
-//   transition: .5s all;
-//   //デフォルト状態では非表示
-//   width: 0;
-// }
-
-// .underline::after:hover {
-//   width: 100%;
-// }
 .underline::after{
 	position:absolute;
 	bottom:0;
@@ -106,4 +82,16 @@ body{
 
 body{
 	background-color: #F2F2F2;
+}
+
+//Topに戻るボタンの実装
+#top-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 3;
+}
+
+#top-btn img {
+  width: 50px;
 }
