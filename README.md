@@ -1,24 +1,15 @@
-# README
+アプリケーションの機能
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Youtubeの動画と共に自分の思ったこと・学んだことを投稿できるサイト。
 
-Things you may want to cover:
+他の人が動画からどんなことを考えたり・学んでいるのかを知ることができます。
+また、別のユーザーの感想や学んだことの投稿から動画にアクセスできるので、別の角度から動画を発見することができるのではないかと考えております。
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ アプリケーションの機能一覧
+ 
+ 記事一覧表示機能 記事詳細表示機能 記事投稿機能 管理ユーザー登録機能 管理ユーザーログイン機能 画像ファイルアップロード機能
+ ページネーション機能 フォロー・フォロワー機能 いいね機能 ブックマーク機能 検索機能 ランキング機能 コメント機能 タグ付け機能 プロフィール編集機能
+ 
+ 
+ アプリケーション内で使用している技術一覧
+ AWS(EC2,RDS,ELB)
